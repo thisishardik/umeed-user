@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:umeed_user_app/providers/bottom_navigation_provider.dart';
 import 'package:umeed_user_app/providers/complaint_provider.dart';
+import 'package:umeed_user_app/providers/dashboard_provider.dart';
 import 'package:umeed_user_app/providers/user_provider.dart';
 import 'package:umeed_user_app/providers/auth_provider.dart';
 import 'package:umeed_user_app/screens/authentication/login.dart';
@@ -33,6 +35,12 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider.value(
           value: ComplaintProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: BottomNavigationProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: DashboardProvider(),
         ),
       ],
       child: MaterialApp(

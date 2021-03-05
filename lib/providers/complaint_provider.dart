@@ -8,6 +8,10 @@ import 'package:umeed_user_app/helpers/user.dart';
 import 'package:umeed_user_app/helpers/complaint.dart';
 
 class ComplaintProvider with ChangeNotifier {
+  final _auth = FirebaseAuth.instance;
+  var loggedInUser;
+  String userID;
+
   List<Complaint> _complaints = new List<Complaint>();
 
   List<Complaint> get complaints {
@@ -15,6 +19,12 @@ class ComplaintProvider with ChangeNotifier {
   }
 
   Future<List<Complaint>> getAllComplaints() async {
+    final user = _auth.currentUser;
+    if (user != null) {
+      loggedInUser = user;
+      userID = loggedInUser.uid;
+      print("USER ID IS : $userID");
+    }
     String url =
         "https://xk01e5qt90.execute-api.us-east-1.amazonaws.com/v1/user/getallcomplaints";
 
@@ -31,13 +41,17 @@ class ComplaintProvider with ChangeNotifier {
       print("EXTRACTED ELEMENTS AT I POS ${extractedComplaints[i]}");
       complaints.add(
         Complaint(
-            id: extractedComplaints[i]['id'],
-            address: extractedComplaints[i]['address'],
-            contact: extractedComplaints[i]['contact'],
-            date: extractedComplaints[i]['date'],
-            desc: extractedComplaints[i]['description'],
-            location: extractedComplaints[i]['location'],
-            name: extractedComplaints[i]['name']),
+          id: extractedComplaints[i]['id'],
+          comp_user_id: extractedComplaints[i]['comp_user_id'],
+          user_email: extractedComplaints[i]['comp_user_email'],
+          address: extractedComplaints[i]['comp_user_address'],
+          contact: extractedComplaints[i]['contact'],
+          date: extractedComplaints[i]['date'],
+          desc: extractedComplaints[i]['description'],
+          location: extractedComplaints[i]['location'],
+          name: extractedComplaints[i]['comp_user_name'],
+          area_of_comp: extractedComplaints[i]['area_of_comp'],
+        ),
       );
     }
     // extractedComplaints.forEach((element) {
