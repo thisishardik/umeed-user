@@ -1,0 +1,77 @@
+FutureBuilder(
+future: Provider.of<ComplaintProvider>(context)
+.getAllComplaints(),
+builder: (context, snapshot) {
+if (snapshot.hasData) {
+return ListView.builder(
+shrinkWrap: true,
+itemCount: snapshot.data.length,
+itemBuilder: (context, index) {
+return Column(
+children: [
+Text('${snapshot.data[index].name}'),
+Text('${snapshot.data[index].desc}'),
+],
+);
+});
+} else {
+print(
+"THIS IS GET ALL COMPLAINTS SNAPSHOT DATA ${snapshot.data}");
+return CircularProgressIndicator();
+}
+}),
+FutureBuilder(
+future:
+Provider.of<UserProvider>(context).getUserProfileData(),
+builder: (context, snapshot) {
+if (snapshot.hasData) {
+// print("This is the user data : ${snapshot.data}");
+return Column(
+children: [
+Padding(
+padding: const EdgeInsets.all(8.0),
+child: Text(
+'${snapshot.data.uid}',
+style: TextStyle(
+color: Colors.black,
+fontSize: 20.0,
+),
+),
+),
+Padding(
+padding: const EdgeInsets.all(8.0),
+child: Text(
+'${snapshot.data.name}',
+style: TextStyle(
+color: Colors.black,
+fontSize: 20.0,
+),
+),
+),
+Padding(
+padding: const EdgeInsets.all(8.0),
+child: Text(
+userData.contact,
+style: TextStyle(
+color: Colors.black,
+fontSize: 20.0,
+),
+),
+),
+Padding(
+padding: const EdgeInsets.all(8.0),
+child: Text(
+userData.email,
+style: TextStyle(
+color: Colors.black,
+fontSize: 20.0,
+),
+),
+),
+],
+);
+} else {
+print("This is the user data : ${snapshot.data}");
+return CircularProgressIndicator();
+}
+}),
