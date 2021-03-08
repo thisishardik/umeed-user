@@ -41,6 +41,14 @@ dependencies:
   flutter_icons: ^1.1.0
   page_transition: ^1.1.7+6
   google_fonts: any
+  im_stepper: ^0.1.2+10
+  fa_stepper: ^0.0.2
+  image_picker: 0.6.6+1
+  rounded_loading_button: ^1.0.0
+
+
+
+
 
 
 

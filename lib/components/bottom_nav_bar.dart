@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:umeed_user_app/providers/bottom_navigation_provider.dart';
 import 'package:umeed_user_app/screens/dashboard.dart';
-import 'file:///F:/Android/AndroidStudioProjects/umeed_user_app/umeed_user_app/lib/screens/grievance/grievance_screen.dart';
+import 'file:///F:/Android/AndroidStudioProjects/umeed_user_app/umeed_user_app/lib/screens/grievance/post_grievance_screen.dart';
 import 'package:umeed_user_app/screens/help_screen.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
@@ -16,7 +16,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   var currentTab = [
     Dashboard(),
     HelpScreen(),
-    GrievanceScreen(),
+    PostGrievanceScreen(),
   ];
 
   @override
@@ -41,7 +41,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                 builder: (context) =>
                     currentTab[bottomNavBarProvider.currentIndex],
               ),
-              (route) => false);
+              (route) => true);
         },
         elevation: 8.0,
         iconSize: 26.5,

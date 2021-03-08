@@ -1,0 +1,530 @@
+
+   DotStepper(
+                dotCount: dotCount,
+                dotRadius: 6,
+                activeStep: activeStep,
+                shape: Shape.circle,
+                spacing: 15,
+                indicator: Indicator.worm,
+                tappingEnabled: false,
+                fixedDotDecoration: FixedDotDecoration(
+                  color: Colors.blueGrey,
+                ),
+                indicatorDecoration: IndicatorDecoration(
+                  // style: PaintingStyle.stroke,
+                  // strokeWidth: 8,
+                  color: Colors.black,
+                ),
+                lineConnectorDecoration: LineConnectorDecoration(
+                  color: Colors.red,
+                  strokeWidth: 0,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    activeStep == 0 ? Container() : previousButton(),
+                    nextButton(),
+                  ],
+                ),
+              ),
+              _buildBodyForStepper(),
+
+  Widget _buildBodyForStepper() {
+    setState(() {
+      switch (activeStep) {
+        case 0:
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  readOnly: true,
+                  initialValue: userData.name,
+                  decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    labelText: "Name",
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.blueGrey,
+                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  readOnly: true,
+                  initialValue: userData.email,
+                  decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    labelText: "Email",
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.blueGrey,
+                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  readOnly: true,
+                  initialValue: userData.contact,
+                  decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    labelText: "Contact",
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.blueGrey,
+                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.38,
+              ),
+              Container(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  'These details will be used to register the complaint in the portal.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          );
+        case 1:
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  readOnly: true,
+                  initialValue: 'widget.aoc',
+                  decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    labelText: "Area of Concern",
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.blueGrey,
+                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  onChanged: (value) {
+                    landmark = value;
+                  },
+                  decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    labelText: "Landmark",
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.blueGrey,
+                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  onChanged: (value) {
+                    desc = value;
+                  },
+                  decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    labelText: "Description",
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.blueGrey,
+                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.38,
+              ),
+              Container(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  'These details will be used to register the complaint in the portal.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          );
+        case 2:
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  readOnly: true,
+                  initialValue: 'widget.aoc',
+                  decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    labelText: "Area of Concern",
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.blueGrey,
+                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  onChanged: (value) {
+                    landmark = value;
+                  },
+                  decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    labelText: "Landmark",
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.blueGrey,
+                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  onChanged: (value) {
+                    desc = value;
+                  },
+                  decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    labelText: "Description",
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.blueGrey,
+                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.38,
+              ),
+              Container(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  'These details will be used to register the complaint in the portal.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          );
+        case 3:
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  readOnly: true,
+                  initialValue: 'widget.aoc',
+                  decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    labelText: "Area of Concern",
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.blueGrey,
+                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  onChanged: (value) {
+                    landmark = value;
+                  },
+                  decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    labelText: "Landmark",
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.blueGrey,
+                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  onChanged: (value) {
+                    desc = value;
+                  },
+                  decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    labelText: "Description",
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.blueGrey,
+                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: BorderSide(
+                        color: Color(0xFF757575),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.38,
+              ),
+              Container(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  'These details will be used to register the complaint in the portal.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          );
+      }
+    });
+  }
+
+  Row steps() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: List.generate(dotCount, (index) {
+        return ElevatedButton(
+          child: Text('${index + 1}'),
+          onPressed: () {
+            setState(() {
+              activeStep = index;
+            });
+          },
+        );
+      }),
+    );
+  }
+
+  Widget nextButton() {
+    return MaterialButton(
+      color: Colors.orange,
+      child: Text(
+        'Next',
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      onPressed: () {
+        if (activeStep < dotCount - 1) {
+          setState(() {
+            activeStep++;
+          });
+        }
+      },
+    );
+  }
+
+  /// Returns the previous button widget.
+  Widget previousButton() {
+    return MaterialButton(
+      color: Colors.orange,
+      child: Text(
+        'Previous',
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      onPressed: () {
+        // activeStep MUST BE GREATER THAN 0 TO PREVENT OVERFLOW.
+        if (activeStep > 0) {
+          setState(() {
+            activeStep--;
+          });
+        }
+      },
+    );
+  }

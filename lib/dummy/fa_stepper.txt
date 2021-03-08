@@ -1,0 +1,240 @@
+FAStep(
+                    title: Text("Personal Details"),
+                    content: Column(
+                      children: [
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        TextFormField(
+                          readOnly: true,
+                          initialValue: userData.name,
+                          decoration: InputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            labelText: "Name",
+                            labelStyle: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.blueGrey,
+                            ),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 18),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(
+                                color: Color(0xFF757575),
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                              borderSide: BorderSide(
+                                color: Color(0xFF757575),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15.0,
+                        ),
+                        TextFormField(
+                          readOnly: true,
+                          initialValue: userData.email,
+                          decoration: InputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            labelText: "Email",
+                            labelStyle: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.blueGrey,
+                            ),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 18),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(
+                                color: Color(0xFF757575),
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                              borderSide: BorderSide(
+                                color: Color(0xFF757575),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15.0,
+                        ),
+                        TextFormField(
+                          readOnly: true,
+                          initialValue: userData.contact,
+                          decoration: InputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            labelText: "Contact",
+                            labelStyle: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.blueGrey,
+                            ),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 18),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(
+                                color: Color(0xFF757575),
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                              borderSide: BorderSide(
+                                color: Color(0xFF757575),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    isActive: true,
+                  ),
+                  FAStep(
+                    title: Text("Landmark"),
+                    content: Column(
+                      children: [
+                        SizedBox(height: 5.0),
+                        TextFormField(
+                          readOnly: true,
+                          initialValue: userData.username,
+                          decoration: InputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            labelText: "Area of Concern",
+                            labelStyle: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.blueGrey,
+                            ),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 18),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(
+                                color: Color(0xFF757575),
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                              borderSide: BorderSide(
+                                color: Color(0xFF757575),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15.0,
+                        ),
+                        TextFormField(
+                          onChanged: (value) {
+                            landmark = value;
+                          },
+                          decoration: InputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            labelText: "Enter the landmark",
+                            labelStyle: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.blueGrey,
+                            ),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 18),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(color: Color(0xFF757575)),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                              borderSide: BorderSide(
+                                color: Color(0xFF757575),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 15.0),
+                        TextFormField(
+                          onChanged: (value) {
+                            desc = value;
+                          },
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          decoration: InputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            labelText: "Describe your problem",
+                            labelStyle: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.blueGrey,
+                            ),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 18),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(color: Color(0xFF757575)),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                              borderSide: BorderSide(
+                                color: Color(0xFF757575),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    isActive: true,
+                  ),
+                  FAStep(
+                    title: Text("Click Pictures"),
+                    content: Column(
+                      children: [
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        GridView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          padding: EdgeInsets.only(left: 16, right: 16),
+                          itemCount: 2,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10.0,
+                            mainAxisSpacing: 10.0,
+                          ),
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () => showChoiceDialog(context),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: Colors.teal,
+                                    width: 2.0,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Center(
+                                      child: imageFile == null
+                                          ? Image.asset(
+                                              'assets/images/upload.png',
+                                              height: 80,
+                                            )
+                                          : imageFile,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                    isActive: true,
+                  ),

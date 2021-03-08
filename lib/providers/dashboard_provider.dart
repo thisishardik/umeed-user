@@ -13,17 +13,12 @@ class DashboardProvider with ChangeNotifier {
   String userID;
 
   List<String> areas_of_concern = [
-    "At Home",
-    "Dental",
-    "Face",
-    "Fit Food",
-    "Gym",
-    "Haircut",
-    "Hair color",
-    "Manicure",
-    "Pedicure",
-    "Shave",
-    "Spa",
-    "Yoga",
+    'Electrical',
+    'Health and Sanitation',
+    'Entomology',
+    'Revenue',
+    'Veterinary',
+    'Urban Biodiversity',
+    'Information Technology'
   ];
 }

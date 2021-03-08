@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:umeed_user_app/providers/complaint_provider.dart';
 import 'package:umeed_user_app/providers/dashboard_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:umeed_user_app/screens/grievance/post_complaint_screen.dart';
+import 'package:umeed_user_app/screens/grievance/post_grievance_screen.dart';
 
 class AreaOfConcernScreen extends StatefulWidget {
   @override
@@ -10,6 +13,7 @@ class AreaOfConcernScreen extends StatefulWidget {
 
 class _AreaOfConcernScreenState extends State<AreaOfConcernScreen> {
   List<String> areas_of_concern = new List<String>();
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -39,7 +43,7 @@ class _AreaOfConcernScreenState extends State<AreaOfConcernScreen> {
             GridView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.only(left: 16, right: 16),
+              padding: EdgeInsets.only(left: 20, right: 20),
               itemCount: areas_of_concern.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
@@ -47,63 +51,65 @@ class _AreaOfConcernScreenState extends State<AreaOfConcernScreen> {
                 mainAxisSpacing: 10.0,
               ),
               itemBuilder: (context, index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: Colors.teal,
-                      width: 2.0,
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
+                return GestureDetector(
+                  onTap: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => PostComplaintScreen(
+                    //       aoc: areas_of_concern[index],
+                    //     ),
+                    //   ),
+                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PostGrievanceScreen(
+                          aoc: areas_of_concern[index],
+                        ),
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Image.asset(
-                            'assets/images/splash.jpg',
-                            width: 42,
-                          ),
-                          SizedBox(
-                            height: 14,
-                          ),
-                          Text(
-                            areas_of_concern[index],
-                            style: GoogleFonts.openSans(
-                                textStyle: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600)),
-                          ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            areas_of_concern[index],
-                            style: GoogleFonts.openSans(
-                                textStyle: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w600)),
-                          ),
-                          SizedBox(
-                            height: 14,
-                          ),
-                          Text(
-                            areas_of_concern[index],
-                            style: GoogleFonts.openSans(
-                                textStyle: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w600)),
-                          ),
-                        ],
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: Colors.teal,
+                        width: 2.0,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Image.asset(
+                              'assets/images/grief.png',
+                              width: 42,
+                            ),
+                            SizedBox(
+                              height: 14,
+                            ),
+                            Text(
+                              areas_of_concern[index],
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.openSans(
+                                  textStyle: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 15.5,
+                                      fontWeight: FontWeight.w600)),
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

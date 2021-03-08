@@ -68,3 +68,173 @@
                        ],
                      ),
                    )
+
+
+                                           TextFormField(
+                                           decoration: InputDecoration(
+                                             labelText: "Name",
+                                             // labelStyle: TextStyle(
+                                             //   color: Color(0xFFFF7643),
+                                             // ),
+                                             hintText: "Enter your name",
+                                             floatingLabelBehavior: FloatingLabelBehavior.always,
+                                             contentPadding: EdgeInsets.symmetric(
+                                                 horizontal: 42, vertical: 20),
+                                             enabledBorder: OutlineInputBorder(
+                                               borderRadius: BorderRadius.circular(28),
+                                               borderSide: BorderSide(color: Color(0xFF757575)),
+                                               gapPadding: 10.0,
+                                             ),
+                                             focusedBorder: OutlineInputBorder(
+                                               borderRadius: BorderRadius.circular(28.0),
+                                               borderSide: BorderSide(color: Color(0xFF757575)),
+                                               gapPadding: 10.0,
+                                             ),
+                                             suffixIcon: Padding(
+                                               padding: const EdgeInsets.only(right: 28.0),
+                                               child: SvgPicture.asset(
+                                                 "assets/icons/Mail.svg",
+                                                 height: 6.0,
+                                               ),
+                                             ),
+                                           ),
+                                         ),
+
+                                         Container(
+                                                         child: Stepper(
+                                                       physics: ClampingScrollPhysics(),
+                                                       currentStep: this.current_step,
+                                                       steps: [
+                                                         Step(
+                                                           title: Text("Personal Details"),
+                                                           content: Column(
+                                                             children: [
+                                                               SizedBox(
+                                                                 height: 5.0,
+                                                               ),
+                                                               TextFormField(
+                                                                 readOnly: true,
+                                                                 initialValue: userData.name,
+                                                                 decoration: InputDecoration(
+                                                                   floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                                   // labelText: "Name",
+                                                                   // labelStyle: TextStyle(
+                                                                   //   fontWeight: FontWeight.w600,
+                                                                   //   color: Colors.blueGrey,
+                                                                   // ),
+                                                                   contentPadding: EdgeInsets.symmetric(
+                                                                       horizontal: 25, vertical: 15),
+                                                                   enabledBorder: OutlineInputBorder(
+                                                                     borderRadius: BorderRadius.circular(5),
+                                                                     borderSide: BorderSide(
+                                                                       color: Color(0xFF757575),
+                                                                     ),
+                                                                   ),
+                                                                   focusedBorder: OutlineInputBorder(
+                                                                     borderRadius: BorderRadius.circular(5.0),
+                                                                     borderSide: BorderSide(
+                                                                       color: Color(0xFF757575),
+                                                                     ),
+                                                                   ),
+                                                                 ),
+                                                               ),
+                                                               SizedBox(
+                                                                 height: 5.0,
+                                                               ),
+                                                               TextFormField(
+                                                                 readOnly: true,
+                                                                 initialValue: userData.email,
+                                                                 decoration: InputDecoration(
+                                                                   floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                                   // labelText: "Name",
+                                                                   // labelStyle: TextStyle(
+                                                                   //   fontWeight: FontWeight.w600,
+                                                                   //   color: Colors.blueGrey,
+                                                                   // ),
+                                                                   contentPadding: EdgeInsets.symmetric(
+                                                                       horizontal: 25, vertical: 15),
+                                                                   enabledBorder: OutlineInputBorder(
+                                                                     borderRadius: BorderRadius.circular(5),
+                                                                     borderSide: BorderSide(
+                                                                       color: Color(0xFF757575),
+                                                                     ),
+                                                                   ),
+                                                                   focusedBorder: OutlineInputBorder(
+                                                                     borderRadius: BorderRadius.circular(5.0),
+                                                                     borderSide: BorderSide(
+                                                                       color: Color(0xFF757575),
+                                                                     ),
+                                                                   ),
+                                                                 ),
+                                                               ),
+                                                             ],
+                                                           ),
+                                                           isActive: true,
+                                                         ),
+                                                         Step(
+                                                           title: Text("Landmark"),
+                                                           content: TextFormField(
+                                                             decoration: InputDecoration(
+                                                               floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                               hintText: "Enter the landmark",
+                                                               contentPadding:
+                                                                   EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                                                               enabledBorder: OutlineInputBorder(
+                                                                 borderRadius: BorderRadius.circular(5),
+                                                                 borderSide: BorderSide(color: Color(0xFF757575)),
+                                                               ),
+                                                               focusedBorder: OutlineInputBorder(
+                                                                 borderRadius: BorderRadius.circular(5.0),
+                                                                 borderSide: BorderSide(
+                                                                   color: Color(0xFF757575),
+                                                                 ),
+                                                               ),
+                                                             ),
+                                                             onChanged: (value) {
+                                                               landmark = value;
+                                                             },
+                                                           ),
+                                                           state: StepState.indexed,
+                                                           isActive: true,
+                                                         ),
+                                                         Step(
+                                                             title: Text("Select the product"),
+                                                             content: Text("Laptop"),
+                                                             isActive: true),
+                                                         Step(
+                                                             title: Text("Make the payment"),
+                                                             content: Text("Enter transaction details..."),
+                                                             isActive: true),
+                                                         Step(
+                                                             title: Text("Exit the app!!!"),
+                                                             content: Text("Purchase done successfully"),
+                                                             isActive: true),
+                                                       ],
+                                                       type: StepperType.vertical,
+                                                       onStepTapped: (step) {
+                                                         setState(() {
+                                                           current_step = step;
+                                                         });
+                                                         print("onStepTapped : " + step.toString());
+                                                       },
+                                                       onStepCancel: () {
+                                                         setState(() {
+                                                           if (current_step > 0) {
+                                                             current_step = current_step - 1;
+                                                           } else {
+                                                             current_step = 0;
+                                                           }
+                                                         });
+                                                         print("onStepCancel : " + current_step.toString());
+                                                       },
+                                                       onStepContinue: () {
+                                                         setState(() {
+                                                           if (current_step < 4 - 1) {
+                                                             current_step = current_step + 1;
+                                                           } else {
+                                                             current_step = 0;
+                                                           }
+                                                         });
+                                                         print("onStepContinue : " + current_step.toString());
+                                                       },
+                                                     )),

@@ -44,7 +44,7 @@ class ComplaintProvider with ChangeNotifier {
           id: extractedComplaints[i]['id'],
           comp_user_id: extractedComplaints[i]['comp_user_id'],
           user_email: extractedComplaints[i]['comp_user_email'],
-          address: extractedComplaints[i]['comp_user_address'],
+          landmark: extractedComplaints[i]['comp_user_address'],
           contact: extractedComplaints[i]['contact'],
           date: extractedComplaints[i]['date'],
           desc: extractedComplaints[i]['description'],
