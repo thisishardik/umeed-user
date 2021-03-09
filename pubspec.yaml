@@ -45,6 +45,16 @@ dependencies:
   fa_stepper: ^0.0.2
   image_picker: 0.6.6+1
   rounded_loading_button: ^1.0.0
+  location: 3.2.4
+  nanoid: 0.1.0
+  geolocator: 6.2.1
+  geocoder: ^0.2.1
+  location_permissions: ^3.0.0+1
+
+
+
+
+
 
 
 

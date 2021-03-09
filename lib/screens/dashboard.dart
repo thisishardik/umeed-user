@@ -1,6 +1,10 @@
+import 'dart:async';
+import 'package:geocoder/model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:umeed_user_app/components/bottom_nav_bar.dart';
@@ -19,13 +23,19 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   AppUser userData;
-  String uid = "";
   AuthProvider authProvider;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  static Future<LocationPermission> checkLocationPermission() {
+    GeolocatorPlatform.instance.requestPermission();
+  }
+
+  String uid = "";
 
   @override
   void initState() {
     super.initState();
+    checkLocationPermission();
   }
 
   @override
@@ -103,12 +113,20 @@ class _DashboardState extends State<Dashboard> {
                     //   ),
                     // ),
                     GestureDetector(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AreaOfConcernScreen(),
-                        ),
-                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AreaOfConcernScreen(),
+                          ),
+                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => AreaOfConcernScreen(),
+                        //   ),
+                        // );
+                      },
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(

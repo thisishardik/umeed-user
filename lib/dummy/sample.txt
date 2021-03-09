@@ -238,3 +238,293 @@
                                                          print("onStepContinue : " + current_step.toString());
                                                        },
                                                      )),
+
+                                                       // List<Widget> tabWidgets = [
+                                                       //      Column(
+                                                       //       children: [
+                                                       //         SizedBox(
+                                                       //           height: 5.0,
+                                                       //         ),
+                                                       //         TextFormField(
+                                                       //           readOnly: true,
+                                                       //           initialValue: userData.name,
+                                                       //           decoration: InputDecoration(
+                                                       //             floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                       //             labelText: "Name",
+                                                       //             labelStyle: TextStyle(
+                                                       //               fontWeight: FontWeight.w600,
+                                                       //               color: Colors.blueGrey,
+                                                       //             ),
+                                                       //             contentPadding:
+                                                       //             EdgeInsets.symmetric(horizontal: 25, vertical: 18),
+                                                       //             enabledBorder: OutlineInputBorder(
+                                                       //               borderRadius: BorderRadius.circular(5),
+                                                       //               borderSide: BorderSide(
+                                                       //                 color: Color(0xFF757575),
+                                                       //               ),
+                                                       //             ),
+                                                       //             focusedBorder: OutlineInputBorder(
+                                                       //               borderRadius: BorderRadius.circular(5.0),
+                                                       //               borderSide: BorderSide(
+                                                       //                 color: Color(0xFF757575),
+                                                       //               ),
+                                                       //             ),
+                                                       //           ),
+                                                       //         ),
+                                                       //         SizedBox(
+                                                       //           height: 15.0,
+                                                       //         ),
+                                                       //         TextFormField(
+                                                       //           readOnly: true,
+                                                       //           initialValue: userData.email,
+                                                       //           decoration: InputDecoration(
+                                                       //             floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                       //             labelText: "Email",
+                                                       //             labelStyle: TextStyle(
+                                                       //               fontWeight: FontWeight.w600,
+                                                       //               color: Colors.blueGrey,
+                                                       //             ),
+                                                       //             contentPadding:
+                                                       //             EdgeInsets.symmetric(horizontal: 25, vertical: 18),
+                                                       //             enabledBorder: OutlineInputBorder(
+                                                       //               borderRadius: BorderRadius.circular(5),
+                                                       //               borderSide: BorderSide(
+                                                       //                 color: Color(0xFF757575),
+                                                       //               ),
+                                                       //             ),
+                                                       //             focusedBorder: OutlineInputBorder(
+                                                       //               borderRadius: BorderRadius.circular(5.0),
+                                                       //               borderSide: BorderSide(
+                                                       //                 color: Color(0xFF757575),
+                                                       //               ),
+                                                       //             ),
+                                                       //           ),
+                                                       //         ),
+                                                       //         SizedBox(
+                                                       //           height: 15.0,
+                                                       //         ),
+                                                       //         TextFormField(
+                                                       //           readOnly: true,
+                                                       //           initialValue: userData.contact,
+                                                       //           decoration: InputDecoration(
+                                                       //             floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                       //             labelText: "Contact",
+                                                       //             labelStyle: TextStyle(
+                                                       //               fontWeight: FontWeight.w600,
+                                                       //               color: Colors.blueGrey,
+                                                       //             ),
+                                                       //             contentPadding:
+                                                       //             EdgeInsets.symmetric(horizontal: 25, vertical: 18),
+                                                       //             enabledBorder: OutlineInputBorder(
+                                                       //               borderRadius: BorderRadius.circular(5),
+                                                       //               borderSide: BorderSide(
+                                                       //                 color: Color(0xFF757575),
+                                                       //               ),
+                                                       //             ),
+                                                       //             focusedBorder: OutlineInputBorder(
+                                                       //               borderRadius: BorderRadius.circular(5.0),
+                                                       //               borderSide: BorderSide(
+                                                       //                 color: Color(0xFF757575),
+                                                       //               ),
+                                                       //             ),
+                                                       //           ),
+                                                       //         ),
+                                                       //       ],
+                                                       //     ),
+                                                       //      Column(
+                                                       //       children: [
+                                                       //         SizedBox(height: 5.0),
+                                                       //         TextFormField(
+                                                       //           readOnly: true,
+                                                       //           initialValue: userData.username,
+                                                       //           decoration: InputDecoration(
+                                                       //             floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                       //             labelText: "Area of Concern",
+                                                       //             labelStyle: TextStyle(
+                                                       //               fontWeight: FontWeight.w600,
+                                                       //               color: Colors.blueGrey,
+                                                       //             ),
+                                                       //             contentPadding:
+                                                       //             EdgeInsets.symmetric(horizontal: 25, vertical: 18),
+                                                       //             enabledBorder: OutlineInputBorder(
+                                                       //               borderRadius: BorderRadius.circular(5),
+                                                       //               borderSide: BorderSide(
+                                                       //                 color: Color(0xFF757575),
+                                                       //               ),
+                                                       //             ),
+                                                       //             focusedBorder: OutlineInputBorder(
+                                                       //               borderRadius: BorderRadius.circular(5.0),
+                                                       //               borderSide: BorderSide(
+                                                       //                 color: Color(0xFF757575),
+                                                       //               ),
+                                                       //             ),
+                                                       //           ),
+                                                       //         ),
+                                                       //         SizedBox(
+                                                       //           height: 15.0,
+                                                       //         ),
+                                                       //         TextFormField(
+                                                       //           onChanged: (value) {
+                                                       //             landmark = value;
+                                                       //           },
+                                                       //           decoration: InputDecoration(
+                                                       //             floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                       //             labelText: "Enter the landmark",
+                                                       //             labelStyle: TextStyle(
+                                                       //               fontWeight: FontWeight.w600,
+                                                       //               color: Colors.blueGrey,
+                                                       //             ),
+                                                       //             contentPadding:
+                                                       //             EdgeInsets.symmetric(horizontal: 25, vertical: 18),
+                                                       //             enabledBorder: OutlineInputBorder(
+                                                       //               borderRadius: BorderRadius.circular(5),
+                                                       //               borderSide: BorderSide(color: Color(0xFF757575)),
+                                                       //             ),
+                                                       //             focusedBorder: OutlineInputBorder(
+                                                       //               borderRadius: BorderRadius.circular(5.0),
+                                                       //               borderSide: BorderSide(
+                                                       //                 color: Color(0xFF757575),
+                                                       //               ),
+                                                       //             ),
+                                                       //           ),
+                                                       //         ),
+                                                       //         SizedBox(height: 15.0),
+                                                       //         TextFormField(
+                                                       //           onChanged: (value) {
+                                                       //             desc = value;
+                                                       //           },
+                                                       //           keyboardType: TextInputType.multiline,
+                                                       //           maxLines: null,
+                                                       //           decoration: InputDecoration(
+                                                       //             floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                       //             labelText: "Describe your problem",
+                                                       //             labelStyle: TextStyle(
+                                                       //               fontWeight: FontWeight.w600,
+                                                       //               color: Colors.blueGrey,
+                                                       //             ),
+                                                       //             contentPadding:
+                                                       //             EdgeInsets.symmetric(horizontal: 25, vertical: 18),
+                                                       //             enabledBorder: OutlineInputBorder(
+                                                       //               borderRadius: BorderRadius.circular(5),
+                                                       //               borderSide: BorderSide(color: Color(0xFF757575)),
+                                                       //             ),
+                                                       //             focusedBorder: OutlineInputBorder(
+                                                       //               borderRadius: BorderRadius.circular(5.0),
+                                                       //               borderSide: BorderSide(
+                                                       //                 color: Color(0xFF757575),
+                                                       //               ),
+                                                       //             ),
+                                                       //           ),
+                                                       //         ),
+                                                       //       ],
+                                                       //     ),
+                                                       //      Row(
+                                                       //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                       //       children: [
+                                                       //         GestureDetector(
+                                                       //           onTap: () {
+                                                       //             setState(() {
+                                                       //               flag = 1;
+                                                       //             });
+                                                       //             showChoiceDialog(context);
+                                                       //           },
+                                                       //           child: Container(
+                                                       //             constraints: BoxConstraints(maxHeight: 180.0),
+                                                       //             decoration: BoxDecoration(
+                                                       //               color: Colors.white,
+                                                       //               borderRadius: BorderRadius.circular(10),
+                                                       //               border: Border.all(
+                                                       //                 color: Colors.teal,
+                                                       //                 width: 2.0,
+                                                       //               ),
+                                                       //             ),
+                                                       //             child: Padding(
+                                                       //               padding: const EdgeInsets.all(5.0),
+                                                       //               child: Container(
+                                                       //                 decoration: BoxDecoration(
+                                                       //                   borderRadius: BorderRadius.circular(10),
+                                                       //                 ),
+                                                       //                 child: Center(
+                                                       //                   child: imageFile1 == null
+                                                       //                       ? Image.asset(
+                                                       //                     'assets/images/upload.png',
+                                                       //                     height: 200,
+                                                       //                   )
+                                                       //                       : Image.file(
+                                                       //                     imageFile1,
+                                                       //                     height: 200.0,
+                                                       //                     fit: BoxFit.cover,
+                                                       //                   ),
+                                                       //                 ),
+                                                       //               ),
+                                                       //             ),
+                                                       //           ),
+                                                       //         ),
+                                                       //         GestureDetector(
+                                                       //           onTap: () {
+                                                       //             setState(() {
+                                                       //               flag = 2;
+                                                       //             });
+                                                       //             showChoiceDialog(context);
+                                                       //           },
+                                                       //           child: Container(
+                                                       //             constraints: BoxConstraints(maxHeight: 180.0),
+                                                       //             decoration: BoxDecoration(
+                                                       //               color: Colors.white,
+                                                       //               borderRadius: BorderRadius.circular(10),
+                                                       //               border: Border.all(
+                                                       //                 color: Colors.teal,
+                                                       //                 width: 2.0,
+                                                       //               ),
+                                                       //             ),
+                                                       //             child: Padding(
+                                                       //               padding: const EdgeInsets.all(5.0),
+                                                       //               child: Container(
+                                                       //                 decoration: BoxDecoration(
+                                                       //                   borderRadius: BorderRadius.circular(10),
+                                                       //                 ),
+                                                       //                 child: Center(
+                                                       //                   child: imageFile2 == null
+                                                       //                       ? Image.asset(
+                                                       //                     'assets/images/upload.png',
+                                                       //                     height: 200,
+                                                       //                   )
+                                                       //                       : Image.file(
+                                                       //                     imageFile2,
+                                                       //                     height: 200.0,
+                                                       //                     fit: BoxFit.cover,
+                                                       //                   ),
+                                                       //                 ),
+                                                       //               ),
+                                                       //             ),
+                                                       //           ),
+                                                       //         ),
+                                                       //       ],
+                                                       //     ),
+                                                       // ];
+
+                                                       {
+                                                           "id":"id",
+                                                           "comp_user_id":"userID",
+                                                           "comp_user_name":"name",
+                                                           "comp_user_email":"user_email",
+                                                           "date":"date",
+                                                           "landmark":"landmark",
+                                                           "location":"location",
+                                                           "description":"desc",
+                                                           "contact":"contact",
+                                                           "area_of_comp":"area_of_comp"
+                                                       }
+
+                                                       {
+                                                           "id": "AI2Ey-_7bKfzoL6bMO2V",
+                                                           "comp_user_id": "evVtnaYU7vVrr8ULlwnr39kZvz73",
+                                                           "comp_user_name": "Test1",
+                                                           "comp_user_email": "test1@test.com",
+                                                           "date": "2021-03-09 15:38:06.244300",
+                                                           "landmark": "Krishna Nagar" ,
+                                                           "location": "Google Building LMK5, 2001 Landings Dr, Mountain View, CA 94043, USA",
+                                                           "description": "There is no electricity since morning help !!!",
+                                                           "contact": "9140581710",
+                                                           "area_of_comp": "Urban Biodiversity"
+                                                       }

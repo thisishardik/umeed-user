@@ -49,14 +49,6 @@ class AuthProvider with ChangeNotifier {
   addUserToDB() async {
     const url =
         "https://xk01e5qt90.execute-api.us-east-1.amazonaws.com/v1/user/profile";
-    // var data = new Map<String, dynamic>();
-    // data['uid'] = uid;
-    // data['name'] = name;
-    // data['email'] = email;
-    // data['username'] = username;
-    // data['dob'] = dob;
-    // data['gender'] = gender;
-    // data['contact'] = contact;
     Map<String, String> headers = {"Content-type": "application/json"};
 
     String json =

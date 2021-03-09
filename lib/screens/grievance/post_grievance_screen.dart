@@ -2,14 +2,21 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:geocoder/geocoder.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nanoid/async/nanoid.dart';
 import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:umeed_user_app/components/bottom_nav_bar.dart';
 import 'package:umeed_user_app/helpers/choice.dart';
+import 'package:umeed_user_app/helpers/complaint.dart';
 import 'package:umeed_user_app/helpers/user.dart';
 import 'package:umeed_user_app/providers/complaint_provider.dart';
+import 'package:umeed_user_app/providers/location_provider.dart';
 import 'package:umeed_user_app/providers/user_provider.dart';
+import 'package:umeed_user_app/screens/grievance/success_screen.dart';
+import 'package:platform_alert_dialog/platform_alert_dialog.dart';
 
 class PostGrievanceScreen extends StatefulWidget {
   String aoc;
@@ -22,29 +29,61 @@ class PostGrievanceScreen extends StatefulWidget {
 class _PostGrievanceScreenState extends State<PostGrievanceScreen> {
   StepState stepState;
   AppUser userData;
-  ComplaintProvider complaint;
+  Location location = Location();
+
+  List<Address> myLocation;
 
   final RoundedLoadingButtonController _btnController =
       new RoundedLoadingButtonController();
 
-  void _successButtonFunction() async {
-    Timer(Duration(seconds: 3), () {
-      _btnController.success();
+  fetchMeTheCoordinates() async {
+    myLocation = await location.getMyCurrentLocation();
+    print("My location is ${myLocation.first.addressLine}");
+  }
 
-      /// ToDo Implement validation of all fields and call both apis for data and images
-    });
+  Widget _showErrorDialog(String errorMessage) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return PlatformAlertDialog(
+            title: Text('Error has occurred'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text(errorMessage),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              PlatformDialogAction(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              PlatformDialogAction(
+                child: Text('Ok'),
+                actionType: ActionType.Preferred,
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     userData = Provider.of<UserProvider>(context).userData;
-    complaint = Provider.of<ComplaintProvider>(context);
   }
 
   @override
   void initState() {
     super.initState();
+    print(GeolocatorPlatform.instance.checkPermission());
+    fetchMeTheCoordinates();
   }
 
   @override
@@ -60,7 +99,6 @@ class _PostGrievanceScreenState extends State<PostGrievanceScreen> {
 
   String landmark;
   String desc;
-  Map location;
   String name;
 
   File imageFile1;
@@ -152,272 +190,10 @@ class _PostGrievanceScreenState extends State<PostGrievanceScreen> {
     Choice(title: 'Upload', icon: AntDesign.upload),
   ];
 
-  // List<Widget> tabWidgets = [
-  //      Column(
-  //       children: [
-  //         SizedBox(
-  //           height: 5.0,
-  //         ),
-  //         TextFormField(
-  //           readOnly: true,
-  //           initialValue: userData.name,
-  //           decoration: InputDecoration(
-  //             floatingLabelBehavior: FloatingLabelBehavior.always,
-  //             labelText: "Name",
-  //             labelStyle: TextStyle(
-  //               fontWeight: FontWeight.w600,
-  //               color: Colors.blueGrey,
-  //             ),
-  //             contentPadding:
-  //             EdgeInsets.symmetric(horizontal: 25, vertical: 18),
-  //             enabledBorder: OutlineInputBorder(
-  //               borderRadius: BorderRadius.circular(5),
-  //               borderSide: BorderSide(
-  //                 color: Color(0xFF757575),
-  //               ),
-  //             ),
-  //             focusedBorder: OutlineInputBorder(
-  //               borderRadius: BorderRadius.circular(5.0),
-  //               borderSide: BorderSide(
-  //                 color: Color(0xFF757575),
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //         SizedBox(
-  //           height: 15.0,
-  //         ),
-  //         TextFormField(
-  //           readOnly: true,
-  //           initialValue: userData.email,
-  //           decoration: InputDecoration(
-  //             floatingLabelBehavior: FloatingLabelBehavior.always,
-  //             labelText: "Email",
-  //             labelStyle: TextStyle(
-  //               fontWeight: FontWeight.w600,
-  //               color: Colors.blueGrey,
-  //             ),
-  //             contentPadding:
-  //             EdgeInsets.symmetric(horizontal: 25, vertical: 18),
-  //             enabledBorder: OutlineInputBorder(
-  //               borderRadius: BorderRadius.circular(5),
-  //               borderSide: BorderSide(
-  //                 color: Color(0xFF757575),
-  //               ),
-  //             ),
-  //             focusedBorder: OutlineInputBorder(
-  //               borderRadius: BorderRadius.circular(5.0),
-  //               borderSide: BorderSide(
-  //                 color: Color(0xFF757575),
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //         SizedBox(
-  //           height: 15.0,
-  //         ),
-  //         TextFormField(
-  //           readOnly: true,
-  //           initialValue: userData.contact,
-  //           decoration: InputDecoration(
-  //             floatingLabelBehavior: FloatingLabelBehavior.always,
-  //             labelText: "Contact",
-  //             labelStyle: TextStyle(
-  //               fontWeight: FontWeight.w600,
-  //               color: Colors.blueGrey,
-  //             ),
-  //             contentPadding:
-  //             EdgeInsets.symmetric(horizontal: 25, vertical: 18),
-  //             enabledBorder: OutlineInputBorder(
-  //               borderRadius: BorderRadius.circular(5),
-  //               borderSide: BorderSide(
-  //                 color: Color(0xFF757575),
-  //               ),
-  //             ),
-  //             focusedBorder: OutlineInputBorder(
-  //               borderRadius: BorderRadius.circular(5.0),
-  //               borderSide: BorderSide(
-  //                 color: Color(0xFF757575),
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //      Column(
-  //       children: [
-  //         SizedBox(height: 5.0),
-  //         TextFormField(
-  //           readOnly: true,
-  //           initialValue: userData.username,
-  //           decoration: InputDecoration(
-  //             floatingLabelBehavior: FloatingLabelBehavior.always,
-  //             labelText: "Area of Concern",
-  //             labelStyle: TextStyle(
-  //               fontWeight: FontWeight.w600,
-  //               color: Colors.blueGrey,
-  //             ),
-  //             contentPadding:
-  //             EdgeInsets.symmetric(horizontal: 25, vertical: 18),
-  //             enabledBorder: OutlineInputBorder(
-  //               borderRadius: BorderRadius.circular(5),
-  //               borderSide: BorderSide(
-  //                 color: Color(0xFF757575),
-  //               ),
-  //             ),
-  //             focusedBorder: OutlineInputBorder(
-  //               borderRadius: BorderRadius.circular(5.0),
-  //               borderSide: BorderSide(
-  //                 color: Color(0xFF757575),
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //         SizedBox(
-  //           height: 15.0,
-  //         ),
-  //         TextFormField(
-  //           onChanged: (value) {
-  //             landmark = value;
-  //           },
-  //           decoration: InputDecoration(
-  //             floatingLabelBehavior: FloatingLabelBehavior.always,
-  //             labelText: "Enter the landmark",
-  //             labelStyle: TextStyle(
-  //               fontWeight: FontWeight.w600,
-  //               color: Colors.blueGrey,
-  //             ),
-  //             contentPadding:
-  //             EdgeInsets.symmetric(horizontal: 25, vertical: 18),
-  //             enabledBorder: OutlineInputBorder(
-  //               borderRadius: BorderRadius.circular(5),
-  //               borderSide: BorderSide(color: Color(0xFF757575)),
-  //             ),
-  //             focusedBorder: OutlineInputBorder(
-  //               borderRadius: BorderRadius.circular(5.0),
-  //               borderSide: BorderSide(
-  //                 color: Color(0xFF757575),
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //         SizedBox(height: 15.0),
-  //         TextFormField(
-  //           onChanged: (value) {
-  //             desc = value;
-  //           },
-  //           keyboardType: TextInputType.multiline,
-  //           maxLines: null,
-  //           decoration: InputDecoration(
-  //             floatingLabelBehavior: FloatingLabelBehavior.always,
-  //             labelText: "Describe your problem",
-  //             labelStyle: TextStyle(
-  //               fontWeight: FontWeight.w600,
-  //               color: Colors.blueGrey,
-  //             ),
-  //             contentPadding:
-  //             EdgeInsets.symmetric(horizontal: 25, vertical: 18),
-  //             enabledBorder: OutlineInputBorder(
-  //               borderRadius: BorderRadius.circular(5),
-  //               borderSide: BorderSide(color: Color(0xFF757575)),
-  //             ),
-  //             focusedBorder: OutlineInputBorder(
-  //               borderRadius: BorderRadius.circular(5.0),
-  //               borderSide: BorderSide(
-  //                 color: Color(0xFF757575),
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //      Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //       children: [
-  //         GestureDetector(
-  //           onTap: () {
-  //             setState(() {
-  //               flag = 1;
-  //             });
-  //             showChoiceDialog(context);
-  //           },
-  //           child: Container(
-  //             constraints: BoxConstraints(maxHeight: 180.0),
-  //             decoration: BoxDecoration(
-  //               color: Colors.white,
-  //               borderRadius: BorderRadius.circular(10),
-  //               border: Border.all(
-  //                 color: Colors.teal,
-  //                 width: 2.0,
-  //               ),
-  //             ),
-  //             child: Padding(
-  //               padding: const EdgeInsets.all(5.0),
-  //               child: Container(
-  //                 decoration: BoxDecoration(
-  //                   borderRadius: BorderRadius.circular(10),
-  //                 ),
-  //                 child: Center(
-  //                   child: imageFile1 == null
-  //                       ? Image.asset(
-  //                     'assets/images/upload.png',
-  //                     height: 200,
-  //                   )
-  //                       : Image.file(
-  //                     imageFile1,
-  //                     height: 200.0,
-  //                     fit: BoxFit.cover,
-  //                   ),
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //         GestureDetector(
-  //           onTap: () {
-  //             setState(() {
-  //               flag = 2;
-  //             });
-  //             showChoiceDialog(context);
-  //           },
-  //           child: Container(
-  //             constraints: BoxConstraints(maxHeight: 180.0),
-  //             decoration: BoxDecoration(
-  //               color: Colors.white,
-  //               borderRadius: BorderRadius.circular(10),
-  //               border: Border.all(
-  //                 color: Colors.teal,
-  //                 width: 2.0,
-  //               ),
-  //             ),
-  //             child: Padding(
-  //               padding: const EdgeInsets.all(5.0),
-  //               child: Container(
-  //                 decoration: BoxDecoration(
-  //                   borderRadius: BorderRadius.circular(10),
-  //                 ),
-  //                 child: Center(
-  //                   child: imageFile2 == null
-  //                       ? Image.asset(
-  //                     'assets/images/upload.png',
-  //                     height: 200,
-  //                   )
-  //                       : Image.file(
-  //                     imageFile2,
-  //                     height: 200.0,
-  //                     fit: BoxFit.cover,
-  //                   ),
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  // ];
-
   @override
   Widget build(BuildContext context) {
+    final complaintProvider =
+        Provider.of<ComplaintProvider>(context, listen: false);
     return MaterialApp(
       home: DefaultTabController(
         length: choices.length,
@@ -581,7 +357,7 @@ class _PostGrievanceScreenState extends State<PostGrievanceScreen> {
                     padding: const EdgeInsets.all(10.0),
                     child: TextFormField(
                       onChanged: (value) {
-                        landmark = value;
+                        complaintProvider.landmark = value;
                       },
                       decoration: InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -609,7 +385,7 @@ class _PostGrievanceScreenState extends State<PostGrievanceScreen> {
                     padding: const EdgeInsets.all(10.0),
                     child: TextFormField(
                       onChanged: (value) {
-                        desc = value;
+                        complaintProvider.desc = value;
                       },
                       keyboardType: TextInputType.multiline,
                       maxLines: 13,
@@ -815,7 +591,39 @@ class _PostGrievanceScreenState extends State<PostGrievanceScreen> {
                       style: TextStyle(color: Colors.white),
                     ),
                     controller: _btnController,
-                    onPressed: _successButtonFunction,
+                    onPressed: () async {
+                      String complaintID = await nanoid(20);
+                      complaintProvider.name = userData.name;
+                      complaintProvider.user_email = userData.email;
+                      complaintProvider.contact = userData.contact;
+                      complaintProvider.comp_user_id = userData.uid;
+                      complaintProvider.area_of_comp = widget.aoc;
+                      complaintProvider.date = DateTime.now().toString();
+                      complaintProvider.id = complaintID;
+                      complaintProvider.location = myLocation.first.addressLine;
+
+                      final result =
+                          Provider.of<ComplaintProvider>(context, listen: false)
+                              .validate();
+                      print("RESULT IS $result");
+                      if (result != 'pass') {
+                        _showErrorDialog(result);
+                        _btnController.reset();
+                      } else {
+                        Provider.of<ComplaintProvider>(context, listen: false)
+                            .postComplaintToDB();
+                        _btnController.success();
+
+                        /// ToDo Implement validation of all fields and call both apis for data and images
+                        Future.delayed(Duration(seconds: 3), () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SuccessScreen(),
+                              ));
+                        });
+                      }
+                    },
                     width: 250.0,
                   ),
                 ],

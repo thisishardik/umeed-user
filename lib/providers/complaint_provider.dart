@@ -8,6 +8,19 @@ import 'package:umeed_user_app/helpers/user.dart';
 import 'package:umeed_user_app/helpers/complaint.dart';
 
 class ComplaintProvider with ChangeNotifier {
+  String id;
+  String comp_user_id;
+  String landmark;
+  String contact;
+  String date;
+  String desc;
+  String area_of_comp;
+  String location;
+  String name;
+  String user_email;
+
+  /// ToDO Add images File1/2/3/4
+
   final _auth = FirebaseAuth.instance;
   var loggedInUser;
   String userID;
@@ -16,6 +29,35 @@ class ComplaintProvider with ChangeNotifier {
 
   List<Complaint> get complaints {
     return _complaints;
+  }
+
+  void printDetails() {
+    print({
+      'id': id,
+      'comp_user_id': comp_user_id,
+      'comp_user_name': name,
+      'comp_user_email': user_email,
+      'date': date,
+      'landmark': landmark,
+      'location': location,
+      'description': desc,
+      'contact': contact,
+      'area of concern': area_of_comp,
+    }.toString());
+  }
+
+  String validate() {
+    printDetails();
+
+    if (landmark == null ||
+        desc == null ||
+        name == null ||
+        user_email == null ||
+        contact == null ||
+        area_of_comp == null) {
+      return "Fields must not be empty";
+    }
+    return "pass";
   }
 
   Future<List<Complaint>> getAllComplaints() async {
@@ -70,6 +112,26 @@ class ComplaintProvider with ChangeNotifier {
     _complaints = complaints;
     print("THIS IS COMPLAINTS LIST $_complaints");
     return _complaints;
+  }
+
+  postComplaintToDB() async {
+    const url =
+        "https://xk01e5qt90.execute-api.us-east-1.amazonaws.com/v1/user/postcomplaint";
+    Map<String, String> headers = {"Content-type": "application/json"};
+
+    String json =
+        '{"id":"$id","comp_user_id":"$comp_user_id","comp_user_name":"$name","comp_user_email":"$user_email","date":"$date","landmark":"$landmark","location":"$location","description":"$desc","contact":"$contact","area_of_comp":"$area_of_comp",}';
+
+    final response = await http.post(url, body: json, headers: headers);
+    if (response.statusCode == 200) {
+      print("RESPONSE IS $response");
+      print("POSTING COMPLAINT STATUS CODE ${response.statusCode}");
+      print("POSTING COMPLAINT RESPONSE BODY ${response.body}");
+      return response.statusCode;
+    }
+    print("POSTING COMPLAINT STATUS CODE ${response.statusCode}");
+    print("POSTING COMPLAINT RESPONSE BODY ${response.body}");
+    notifyListeners();
   }
 
 // void postUserData(File imageFile, String id, String name, String email,
