@@ -120,17 +120,17 @@ class ComplaintProvider with ChangeNotifier {
     Map<String, String> headers = {"Content-type": "application/json"};
 
     String json =
-        '{"id":"$id","comp_user_id":"$comp_user_id","comp_user_name":"$name","comp_user_email":"$user_email","date":"$date","landmark":"$landmark","location":"$location","description":"$desc","contact":"$contact","area_of_comp":"$area_of_comp",}';
-
+        '{"id":"$id","comp_user_id":"$comp_user_id","comp_user_name":"$name","comp_user_email":"$user_email","date":"$date","landmark":"$landmark","location":"$location","description":"$desc","contact":"$contact","area_of_comp":"$area_of_comp"}';
+    // print("THIS IS THE JSON FILE FOR POST API $json");
     final response = await http.post(url, body: json, headers: headers);
     if (response.statusCode == 200) {
-      print("RESPONSE IS $response");
-      print("POSTING COMPLAINT STATUS CODE ${response.statusCode}");
-      print("POSTING COMPLAINT RESPONSE BODY ${response.body}");
+      // print("RESPONSE IS $response");
+      // print("POSTING COMPLAINT STATUS CODE ${response.statusCode}");
+      // print("POSTING COMPLAINT RESPONSE BODY ${response.body}");
       return response.statusCode;
     }
-    print("POSTING COMPLAINT STATUS CODE ${response.statusCode}");
-    print("POSTING COMPLAINT RESPONSE BODY ${response.body}");
+    // print("POSTING COMPLAINT STATUS CODE ${response.statusCode}");
+    // print("POSTING COMPLAINT RESPONSE BODY ${response.body}");
     notifyListeners();
   }
 

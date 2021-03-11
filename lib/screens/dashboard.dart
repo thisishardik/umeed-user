@@ -55,9 +55,10 @@ class _DashboardState extends State<Dashboard> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 2.0,
-          leading: Icon(
-            Icons.menu,
+          leading: IconButton(
+            icon: Icon(Icons.menu),
             color: Colors.black,
+            onPressed: () => _scaffoldKey.currentState.openDrawer(),
           ),
           centerTitle: true,
           title: Text(
@@ -68,11 +69,163 @@ class _DashboardState extends State<Dashboard> {
           ),
           actions: [
             IconButton(
-              icon: Icon(AntDesign.bells),
+              icon: Icon(Icons.adb),
               color: Colors.black,
               onPressed: () {},
             )
           ],
+        ),
+        drawer: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.6,
+          child: Drawer(
+            elevation: 20.0,
+            child: Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 15.0,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        backgroundImage: AssetImage('assets/images/logo.png'),
+                        radius: 47.0,
+                      ),
+                    ),
+                    Text(
+                      'Welcome to',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        letterSpacing: 1.7,
+                      ),
+                    ),
+                    Text(
+                      'UMEED',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 1.0,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15.0,
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        AntDesign.bells,
+                        color: Colors.blueGrey,
+                        size: 22.0,
+                      ),
+                      title: Padding(
+                        padding: const EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          "Announcements",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        Icons.assignment_outlined,
+                        color: Colors.blueGrey,
+                      ),
+                      title: Padding(
+                        padding: const EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          "Grievance History",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        Icons.adb,
+                        color: Colors.blueGrey,
+                      ),
+                      title: Padding(
+                        padding: const EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          "Help",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        AntDesign.infocirlceo,
+                        color: Colors.blueGrey,
+                        size: 22.0,
+                      ),
+                      title: Padding(
+                        padding: const EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          "About",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        AntDesign.logout,
+                        color: Colors.blueGrey,
+                      ),
+                      title: Padding(
+                        padding: const EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          "Logout",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      onTap: () {},
+                    ),
+                    SizedBox(height: 20.0),
+                    Container(
+                      height: 1.0,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: Colors.blueGrey,
+                        borderRadius: BorderRadius.circular(100.0),
+                      ),
+                    ),
+                  ],
+                ),
+                Positioned(
+                  bottom: 30.0,
+                  child: Text(
+                    'Version 1.0.0',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.blueGrey,
+                      fontSize: 13.0,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
         bottomNavigationBar: BottomNavigation(),
         body: SingleChildScrollView(
@@ -82,36 +235,6 @@ class _DashboardState extends State<Dashboard> {
               if (snapshot.hasData) {
                 return Column(
                   children: [
-                    // Padding(
-                    //   padding: const EdgeInsets.all(15.0),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //     children: [
-                    //       Text(
-                    //         'Hi, ${userData.name}',
-                    //         style: TextStyle(
-                    //           fontSize: 20.0,
-                    //           fontWeight: FontWeight.w600,
-                    //         ),
-                    //       ),
-                    //       Row(
-                    //         children: [
-                    //           Icon(AntDesign.calendar, size: 18.0),
-                    //           SizedBox(
-                    //             width: 5.0,
-                    //           ),
-                    //           Text(
-                    //             "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
-                    //             style: TextStyle(
-                    //               fontSize: 15.0,
-                    //               fontWeight: FontWeight.w600,
-                    //             ),
-                    //           ),
-                    //         ],
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
