@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nanoid/async/nanoid.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:umeed_user_app/components/bottom_nav_bar.dart';
@@ -30,7 +32,7 @@ class _PostGrievanceScreenState extends State<PostGrievanceScreen> {
   StepState stepState;
   AppUser userData;
   Location location = Location();
-
+  final _storage = FirebaseStorage.instance;
   List<Address> myLocation;
 
   final RoundedLoadingButtonController _btnController =
@@ -106,6 +108,11 @@ class _PostGrievanceScreenState extends State<PostGrievanceScreen> {
   File imageFile3;
   File imageFile4;
 
+  String imageUrl1;
+  String imageUrl2;
+  String imageUrl3;
+  String imageUrl4;
+
   _openCamera(BuildContext context) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.camera);
     if (flag == 1) {
@@ -155,6 +162,60 @@ class _PostGrievanceScreenState extends State<PostGrievanceScreen> {
       });
     }
     Navigator.pop(context);
+  }
+
+  _uploadImage() async {
+    // var permissionStatus = await Permission.photos.status;
+    //
+    // if (permissionStatus.isGranted) {
+    //   var file1 = File(imageFile1.path);
+    //   var file2 = File(imageFile2.path);
+    //   var file3 = File(imageFile3.path);
+    //   var file4 = File(imageFile4.path);
+    //
+    //   if (imageFile1 != null &&
+    //       imageFile2 != null &&
+    //       imageFile3 != null &&
+    //       imageFile4 != null) {
+    //     var snapshot1 =
+    //         await _storage.ref().child('${userData.uid}/file1').putFile(file1);
+    //     var downloadUrl1 = snapshot1.ref.getDownloadURL().toString();
+    //
+    //     var snapshot2 =
+    //         await _storage.ref().child('${userData.uid}/file2').putFile(file2);
+    //     var downloadUrl2 = snapshot2.ref.getDownloadURL().toString();
+    //
+    //     var snapshot3 =
+    //         await _storage.ref().child('${userData.uid}/file3').putFile(file3);
+    //     var downloadUrl3 = snapshot3.ref.getDownloadURL().toString();
+    //
+    //     var snapshot4 =
+    //         await _storage.ref().child('${userData.uid}/file4').putFile(file4);
+    //     var downloadUrl4 = snapshot4.ref.getDownloadURL().toString();
+    //
+    //     // var downloadUrl1 = await _storage.ref().getDownloadURL();
+    //     // var downloadUrl2 = await _storage.ref().getDownloadURL();
+    //     // var downloadUrl3 = await _storage.ref().getDownloadURL();
+    //     // var downloadUrl4 = await _storage.ref().getDownloadURL();
+    //
+    //     setState(() {
+    //       imageUrl1 = downloadUrl1;
+    //       imageUrl2 = downloadUrl2;
+    //       imageUrl3 = downloadUrl3;
+    //       imageUrl4 = downloadUrl4;
+    //     });
+    //     print("IMAGE URL $imageUrl1");
+    //     print("IMAGE URL $imageUrl2");
+    //     print("IMAGE URL $imageUrl3");
+    //     print("IMAGE URL $imageUrl4");
+    //   } else {
+    //     print('No Path Received');
+    //   }
+    // } else {
+    //   setState(() {
+    //     _showErrorDialog("Please grant permissions ot upload images.");
+    //   });
+    // }
   }
 
   Future<void> showChoiceDialog(BuildContext context) {
@@ -606,15 +667,81 @@ class _PostGrievanceScreenState extends State<PostGrievanceScreen> {
                           Provider.of<ComplaintProvider>(context, listen: false)
                               .validate();
                       print("RESULT IS $result");
+
                       if (result != 'pass') {
                         _showErrorDialog(result);
                         _btnController.reset();
                       } else {
+                        var permissionStatus = await Permission.photos.status;
+
+                        if (permissionStatus.isGranted) {
+                          var file1 = File(imageFile1.path);
+                          var file2 = File(imageFile2.path);
+                          var file3 = File(imageFile3.path);
+                          var file4 = File(imageFile4.path);
+
+                          if (imageFile1 != null &&
+                              imageFile2 != null &&
+                              imageFile3 != null &&
+                              imageFile4 != null) {
+                            var snapshot1 = await _storage
+                                .ref()
+                                .child('${userData.uid}/$complaintID/file1')
+                                .putFile(file1);
+                            var downloadUrl1 = snapshot1.ref.getDownloadURL();
+
+                            var snapshot2 = await _storage
+                                .ref()
+                                .child('${userData.uid}/$complaintID/file2')
+                                .putFile(file2);
+                            var downloadUrl2 = snapshot2.ref.getDownloadURL();
+
+                            var snapshot3 = await _storage
+                                .ref()
+                                .child('${userData.uid}/$complaintID/file3')
+                                .putFile(file3);
+                            var downloadUrl3 = snapshot3.ref.getDownloadURL();
+
+                            var snapshot4 = await _storage
+                                .ref()
+                                .child('${userData.uid}/$complaintID/file4')
+                                .putFile(file4);
+                            var downloadUrl4 = snapshot4.ref.getDownloadURL();
+
+                            // var downloadUrl1 = await _storage.ref().getDownloadURL();
+                            // var downloadUrl2 = await _storage.ref().getDownloadURL();
+                            // var downloadUrl3 = await _storage.ref().getDownloadURL();
+                            // var downloadUrl4 = await _storage.ref().getDownloadURL();
+
+                            setState(() {
+                              imageUrl1 = downloadUrl1.toString();
+                              imageUrl2 = downloadUrl2.toString();
+                              imageUrl3 = downloadUrl3.toString();
+                              imageUrl4 = downloadUrl4.toString();
+                            });
+
+                            print("********IMAGE URL $imageUrl1");
+                            print("********IMAGE URL $imageUrl2");
+                            print("********IMAGE URL $imageUrl3");
+                            print("********IMAGE URL $imageUrl4");
+                          } else {
+                            print('No Path Received');
+                          }
+                        } else {
+                          setState(() {
+                            _showErrorDialog(
+                                "Please grant permissions ot upload images.");
+                          });
+                        }
+                        complaintProvider.imageUrl1 = imageUrl1;
+                        complaintProvider.imageUrl2 = imageUrl2;
+                        complaintProvider.imageUrl3 = imageUrl3;
+                        complaintProvider.imageUrl4 = imageUrl4;
+
                         Provider.of<ComplaintProvider>(context, listen: false)
                             .postComplaintToDB();
                         _btnController.success();
 
-                        /// ToDo Implement validation of all fields and call both apis for data and images
                         Future.delayed(Duration(seconds: 3), () {
                           Navigator.pushReplacement(
                               context,

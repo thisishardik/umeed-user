@@ -8,7 +8,6 @@ import 'package:platform_alert_dialog/platform_alert_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:umeed_user_app/providers/auth_provider.dart';
 import 'package:umeed_user_app/screens/authentication/login.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class SignUpScreen extends StatefulWidget {

@@ -6,6 +6,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:umeed_user_app/components/bottom_nav_bar.dart';
 import 'package:umeed_user_app/helpers/user.dart';
@@ -26,8 +27,10 @@ class _DashboardState extends State<Dashboard> {
   AuthProvider authProvider;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  static Future<LocationPermission> checkLocationPermission() {
+  checkPermissions() async {
     GeolocatorPlatform.instance.requestPermission();
+    await Permission.photos.request();
+    await Permission.camera.request();
   }
 
   String uid = "";
@@ -35,7 +38,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
     super.initState();
-    checkLocationPermission();
+    checkPermissions();
   }
 
   @override

@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:umeed_user_app/components/size_conf.dart';
-import 'package:umeed_user_app/helpers/user.dart';
 import 'package:umeed_user_app/screens/dashboard.dart';
 import 'package:umeed_user_app/screens/authentication/register.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
-import 'package:umeed_user_app/providers/auth_provider.dart';
 import 'package:platform_alert_dialog/platform_alert_dialog.dart';
 
 class SignInScreen extends StatefulWidget {

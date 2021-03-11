@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
-import 'package:umeed_user_app/helpers/user.dart';
 import 'package:umeed_user_app/helpers/complaint.dart';
 
 class ComplaintProvider with ChangeNotifier {
@@ -18,6 +15,10 @@ class ComplaintProvider with ChangeNotifier {
   String location;
   String name;
   String user_email;
+  String imageUrl1;
+  String imageUrl2;
+  String imageUrl3;
+  String imageUrl4;
 
   /// ToDO Add images File1/2/3/4
 
@@ -120,17 +121,17 @@ class ComplaintProvider with ChangeNotifier {
     Map<String, String> headers = {"Content-type": "application/json"};
 
     String json =
-        '{"id":"$id","comp_user_id":"$comp_user_id","comp_user_name":"$name","comp_user_email":"$user_email","date":"$date","landmark":"$landmark","location":"$location","description":"$desc","contact":"$contact","area_of_comp":"$area_of_comp"}';
+        '{"id":"$id","comp_user_id":"$comp_user_id","comp_user_name":"$name","comp_user_email":"$user_email","date":"$date","landmark":"$landmark","location":"$location","description":"$desc","contact":"$contact","area_of_comp":"$area_of_comp","imageUrl1":"$imageUrl1","imageUrl2":"$imageUrl2","imageUrl3":"$imageUrl3","imageUrl4":"$imageUrl4"}';
     // print("THIS IS THE JSON FILE FOR POST API $json");
     final response = await http.post(url, body: json, headers: headers);
     if (response.statusCode == 200) {
       // print("RESPONSE IS $response");
-      // print("POSTING COMPLAINT STATUS CODE ${response.statusCode}");
-      // print("POSTING COMPLAINT RESPONSE BODY ${response.body}");
+      print("POSTING COMPLAINT STATUS CODE ${response.statusCode}");
+      print("POSTING COMPLAINT RESPONSE BODY ${response.body}");
       return response.statusCode;
     }
-    // print("POSTING COMPLAINT STATUS CODE ${response.statusCode}");
-    // print("POSTING COMPLAINT RESPONSE BODY ${response.body}");
+    print("POSTING COMPLAINT STATUS CODE ${response.statusCode}");
+    print("POSTING COMPLAINT RESPONSE BODY ${response.body}");
     notifyListeners();
   }
 

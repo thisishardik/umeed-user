@@ -50,8 +50,9 @@ dependencies:
   geolocator: 6.2.1
   geocoder: ^0.2.1
   location_permissions: ^3.0.0+1
-  aws_s3: ^0.1.1+hotfix.5
   file_picker: 1.9.0+1
+  firebase_storage: 7.0.0
+  permission_handler: 5.1.0+2
 
 
 

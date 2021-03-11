@@ -9,6 +9,10 @@ class Complaint {
   final String location;
   final String name;
   final String user_email;
+  final String imageUrl1;
+  final String imageUrl2;
+  final String imageUrl3;
+  final String imageUrl4;
 
   Complaint({
     this.id,
@@ -21,5 +25,9 @@ class Complaint {
     this.area_of_comp,
     this.user_email,
     this.comp_user_id,
+    this.imageUrl1,
+    this.imageUrl2,
+    this.imageUrl3,
+    this.imageUrl4,
   });
 }
