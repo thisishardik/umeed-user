@@ -24,6 +24,10 @@ class _PostComplaintScreenState extends State<PostComplaintScreen> {
   AppUser userData;
   ComplaintProvider complaint;
 
+  void _showSnackBar(BuildContext context, String text) {
+    Scaffold.of(context).showSnackBar(SnackBar(content: Text(text)));
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();

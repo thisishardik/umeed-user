@@ -77,6 +77,10 @@ class _SignInScreenState extends State<SignInScreen> {
         });
   }
 
+  void _showSnackBar(BuildContext context, String text) {
+    Scaffold.of(context).showSnackBar(SnackBar(content: Text(text)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -251,20 +255,29 @@ class _SignInScreenState extends State<SignInScreen> {
                             setState(() {
                               switch (e.code) {
                                 case 'ERROR_INVALID_EMAIL':
-                                  _showErrorDialog("ERROR_INVALID_EMAIL");
+                                  // _showErrorDialog("ERROR_INVALID_EMAIL");
+                                  _showSnackBar(context, "ERROR_INVALID_EMAIL");
                                   break;
                                 case 'ERROR_WRONG_PASSWORD':
-                                  _showErrorDialog("ERROR_WRONG_PASSWORD");
+                                  // _showErrorDialog("ERROR_WRONG_PASSWORD");
+                                  _showSnackBar(
+                                      context, "ERROR_WRONG_PASSWORD");
+
                                   break;
                                 case 'ERROR_USER_NOT_FOUND':
-                                  _showErrorDialog("ERROR_USER_NOT_FOUND");
+                                  // _showErrorDialog("ERROR_USER_NOT_FOUND");
+                                  _showSnackBar(
+                                      context, "ERROR_USER_NOT_FOUND");
                                   break;
                                 case 'ERROR_USER_DISABLED':
-                                  _showErrorDialog("ERROR_USER_DISABLED");
+                                  // _showErrorDialog("ERROR_USER_DISABLED");
+                                  _showSnackBar(context, "ERROR_USER_DISABLED");
                                   break;
                                 default:
-                                  _showErrorDialog(
-                                      "Unknown error has occurred.");
+                                  // _showErrorDialog(
+                                  //     "Unknown error has occurred.");
+                                  _showSnackBar(
+                                      context, "Unknown error has occurred");
                                   break;
                               }
                               showSpinner = false;

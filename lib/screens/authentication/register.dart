@@ -92,6 +92,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         });
   }
 
+  void _showSnackBar(BuildContext context, String text) {
+    Scaffold.of(context).showSnackBar(SnackBar(content: Text(text)));
+  }
+
   Future<void> _selectDate(AuthProvider authProvider) async {
     final DateTime picked = await showDatePicker(
       context: context,
@@ -119,467 +123,437 @@ class _SignUpScreenState extends State<SignUpScreen> {
               currentFocus.unfocus();
             }
           },
-          child: GFFloatingWidget(
-            verticalPosition: MediaQuery.of(context).size.height * 0.8,
-            horizontalPosition: MediaQuery.of(context).size.width * 0.1,
-            showBlurness: showFloatingToast,
-            blurnessColor: Colors.black54,
-            child: showFloatingToast
-                ? GFToast(
-                    backgroundColor: Colors.black,
-                    text: toastMessage,
-                    type: GFToastType.rounded,
-                    textStyle: const TextStyle(
-                      color: Colors.white,
-                      letterSpacing: 1.0,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width * 0.75,
-                    button: GFButton(
-                      onPressed: () {
-                        setState(() {
-                          showFloatingToast = false;
-                        });
-                      },
-                      text: 'OK',
-                      type: GFButtonType.transparent,
-                      color: GFColors.SUCCESS,
-                    ),
-                    autoDismiss: false,
-                  )
-                : Container(),
-            body: ModalProgressHUD(
-              inAsyncCall: showSpinner,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 35.0),
-                        child: Text(
-                          "Sign Up",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.black.withOpacity(0.5),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.04),
-                      Text(
-                        "Welcome to UMEED",
+          child: ModalProgressHUD(
+            inAsyncCall: showSpinner,
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.0,
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 35.0),
+                      child: Text(
+                        "Sign Up",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Colors.black,
-                          fontSize:
-                              MediaQuery.of(context).size.width * (25 / 375.0),
-                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
+                          color: Colors.black.withOpacity(0.5),
                         ),
                       ),
-                      Text(
-                        "Distress Management Citizen Portal",
-                        textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                    Text(
+                      "Welcome to UMEED",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize:
+                            MediaQuery.of(context).size.width * (25 / 375.0),
+                        fontWeight: FontWeight.bold,
                       ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.05),
-                      TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        onChanged: (value) => {
-                          // name = value,
-                          authProvider.name = value,
-                        },
-                        decoration: InputDecoration(
-                          labelText: "Name",
-                          // labelStyle: TextStyle(
-                          //   color: Color(0xFFFF7643),
-                          // ),
-                          hintText: "Enter your name",
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 42, vertical: 20),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(28),
-                            borderSide: BorderSide(color: Color(0xFF757575)),
-                            gapPadding: 10.0,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(28.0),
-                            borderSide: BorderSide(color: Color(0xFF757575)),
-                            gapPadding: 10.0,
-                          ),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 28.0),
-                            child: SvgPicture.asset(
-                              "assets/icons/Mail.svg",
-                              height: 6.0,
-                            ),
-                          ),
+                    ),
+                    Text(
+                      "Distress Management Citizen Portal",
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                    TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      onChanged: (value) => {
+                        // name = value,
+                        authProvider.name = value,
+                      },
+                      decoration: InputDecoration(
+                        labelText: "Name",
+                        // labelStyle: TextStyle(
+                        //   color: Color(0xFFFF7643),
+                        // ),
+                        hintText: "Enter your name",
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 42, vertical: 20),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(28),
+                          borderSide: BorderSide(color: Color(0xFF757575)),
+                          gapPadding: 10.0,
                         ),
-                      ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height *
-                              (30 / 812.0)),
-                      TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        onChanged: (value) => {
-                          authProvider.email = value,
-                        },
-                        decoration: InputDecoration(
-                          labelText: "Email",
-                          // labelStyle: TextStyle(
-                          //   color: Color(0xFFFF7643),
-                          // ),
-                          hintText: "Enter your email",
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 42, vertical: 20),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(28),
-                            borderSide: BorderSide(color: Color(0xFF757575)),
-                            gapPadding: 10.0,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(28.0),
-                            borderSide: BorderSide(color: Color(0xFF757575)),
-                            gapPadding: 10.0,
-                          ),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 28.0),
-                            child: SvgPicture.asset(
-                              "assets/icons/Mail.svg",
-                              height: 6.0,
-                            ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(28.0),
+                          borderSide: BorderSide(color: Color(0xFF757575)),
+                          gapPadding: 10.0,
+                        ),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 28.0),
+                          child: SvgPicture.asset(
+                            "assets/icons/Mail.svg",
+                            height: 6.0,
                           ),
                         ),
                       ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height *
-                              (30 / 812.0)),
-                      TextFormField(
-                        obscureText: true,
-                        onChanged: (value) => {
-                          // password = value,
-                          authProvider.password = value,
-                        },
-                        decoration: InputDecoration(
-                          labelText: "Password",
-                          // labelStyle: TextStyle(
-                          //   color: Color(0xFFFF7643),
-                          // ),
-                          hintText: "Enter your password",
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 42, vertical: 20),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(28),
-                            borderSide: BorderSide(color: Color(0xFF757575)),
-                            gapPadding: 10.0,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(28.0),
-                            borderSide: BorderSide(color: Color(0xFF757575)),
-                            gapPadding: 10.0,
-                          ),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 31.0),
-                            child: SvgPicture.asset(
-                              "assets/icons/Lock.svg",
-                              height: 6.0,
-                            ),
+                    ),
+                    SizedBox(
+                        height:
+                            MediaQuery.of(context).size.height * (30 / 812.0)),
+                    TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      onChanged: (value) => {
+                        authProvider.email = value,
+                      },
+                      decoration: InputDecoration(
+                        labelText: "Email",
+                        // labelStyle: TextStyle(
+                        //   color: Color(0xFFFF7643),
+                        // ),
+                        hintText: "Enter your email",
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 42, vertical: 20),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(28),
+                          borderSide: BorderSide(color: Color(0xFF757575)),
+                          gapPadding: 10.0,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(28.0),
+                          borderSide: BorderSide(color: Color(0xFF757575)),
+                          gapPadding: 10.0,
+                        ),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 28.0),
+                          child: SvgPicture.asset(
+                            "assets/icons/Mail.svg",
+                            height: 6.0,
                           ),
                         ),
                       ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height *
-                              (30 / 812.0)),
-                      TextFormField(
-                        keyboardType: TextInputType.number,
-                        onChanged: (value) => {
-                          // gender = value,
-                          authProvider.contact = value,
-                        },
-                        decoration: InputDecoration(
-                          labelText: "Phone number",
-                          // labelStyle: TextStyle(
-                          //   color: Color(0xFFFF7643),
-                          // ),
-                          hintText: "Enter your details",
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 42, vertical: 20),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(28),
-                            borderSide: BorderSide(color: Color(0xFF757575)),
-                            gapPadding: 10.0,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(28.0),
-                            borderSide: BorderSide(color: Color(0xFF757575)),
-                            gapPadding: 10.0,
-                          ),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 28.0),
-                            child: SvgPicture.asset(
-                              "assets/icons/Mail.svg",
-                              height: 6.0,
-                            ),
+                    ),
+                    SizedBox(
+                        height:
+                            MediaQuery.of(context).size.height * (30 / 812.0)),
+                    TextFormField(
+                      obscureText: true,
+                      onChanged: (value) => {
+                        // password = value,
+                        authProvider.password = value,
+                      },
+                      decoration: InputDecoration(
+                        labelText: "Password",
+                        // labelStyle: TextStyle(
+                        //   color: Color(0xFFFF7643),
+                        // ),
+                        hintText: "Enter your password",
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 42, vertical: 20),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(28),
+                          borderSide: BorderSide(color: Color(0xFF757575)),
+                          gapPadding: 10.0,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(28.0),
+                          borderSide: BorderSide(color: Color(0xFF757575)),
+                          gapPadding: 10.0,
+                        ),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 31.0),
+                          child: SvgPicture.asset(
+                            "assets/icons/Lock.svg",
+                            height: 6.0,
                           ),
                         ),
                       ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height *
-                              (30 / 812.0)),
-                      TextFormField(
-                        readOnly: true,
-                        onTap: () {
+                    ),
+                    SizedBox(
+                        height:
+                            MediaQuery.of(context).size.height * (30 / 812.0)),
+                    TextFormField(
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) => {
+                        // gender = value,
+                        authProvider.contact = value,
+                      },
+                      decoration: InputDecoration(
+                        labelText: "Phone number",
+                        // labelStyle: TextStyle(
+                        //   color: Color(0xFFFF7643),
+                        // ),
+                        hintText: "Enter your details",
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 42, vertical: 20),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(28),
+                          borderSide: BorderSide(color: Color(0xFF757575)),
+                          gapPadding: 10.0,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(28.0),
+                          borderSide: BorderSide(color: Color(0xFF757575)),
+                          gapPadding: 10.0,
+                        ),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 28.0),
+                          child: SvgPicture.asset(
+                            "assets/icons/Mail.svg",
+                            height: 6.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                        height:
+                            MediaQuery.of(context).size.height * (30 / 812.0)),
+                    TextFormField(
+                      readOnly: true,
+                      onTap: () {
+                        setState(() {
+                          _selectDate(authProvider);
+                        });
+                      },
+                      decoration: InputDecoration(
+                        labelText: "Date of birth",
+                        hintText: dob == " " ? "Enter your DOB" : dob,
+                        hintStyle: dob == " "
+                            ? null
+                            : TextStyle(
+                                color: Colors.black,
+                              ),
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 42, vertical: 20),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(28),
+                          borderSide: BorderSide(color: Color(0xFF757575)),
+                          gapPadding: 10.0,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(28.0),
+                          borderSide: BorderSide(color: Color(0xFF757575)),
+                          gapPadding: 10.0,
+                        ),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 28.0),
+                          child: SvgPicture.asset(
+                            "assets/icons/Mail.svg",
+                            height: 6.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                        height:
+                            MediaQuery.of(context).size.height * (30 / 812.0)),
+                    TextFormField(
+                      onChanged: (value) => {
+                        // gender = value,
+                        authProvider.gender = value,
+                      },
+                      decoration: InputDecoration(
+                        labelText: "Gender",
+                        hintText: "Select your gender",
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 42, vertical: 20),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(28),
+                          borderSide: BorderSide(color: Color(0xFF757575)),
+                          gapPadding: 10.0,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(28.0),
+                          borderSide: BorderSide(color: Color(0xFF757575)),
+                          gapPadding: 10.0,
+                        ),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 28.0),
+                          child: SvgPicture.asset(
+                            "assets/icons/Mail.svg",
+                            height: 6.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * (40 / 812.0),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.height * (56 / 812.0),
+                      child: FlatButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        color: Color(0xFFFF7643),
+                        onPressed: () async {
                           setState(() {
-                            _selectDate(authProvider);
+                            showSpinner = true;
                           });
-                        },
-                        decoration: InputDecoration(
-                          labelText: "Date of birth",
-                          hintText: dob == " " ? "Enter your DOB" : dob,
-                          hintStyle: dob == " "
-                              ? null
-                              : TextStyle(
-                                  color: Colors.black,
-                                ),
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 42, vertical: 20),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(28),
-                            borderSide: BorderSide(color: Color(0xFF757575)),
-                            gapPadding: 10.0,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(28.0),
-                            borderSide: BorderSide(color: Color(0xFF757575)),
-                            gapPadding: 10.0,
-                          ),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 28.0),
-                            child: SvgPicture.asset(
-                              "assets/icons/Mail.svg",
-                              height: 6.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height *
-                              (30 / 812.0)),
-                      TextFormField(
-                        onChanged: (value) => {
-                          // gender = value,
-                          authProvider.gender = value,
-                        },
-                        decoration: InputDecoration(
-                          labelText: "Gender",
-                          hintText: "Select your gender",
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 42, vertical: 20),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(28),
-                            borderSide: BorderSide(color: Color(0xFF757575)),
-                            gapPadding: 10.0,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(28.0),
-                            borderSide: BorderSide(color: Color(0xFF757575)),
-                            gapPadding: 10.0,
-                          ),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 28.0),
-                            child: SvgPicture.asset(
-                              "assets/icons/Mail.svg",
-                              height: 6.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height:
-                            MediaQuery.of(context).size.height * (40 / 812.0),
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        height:
-                            MediaQuery.of(context).size.height * (56 / 812.0),
-                        child: FlatButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          color: Color(0xFFFF7643),
-                          onPressed: () async {
-                            setState(() {
-                              showSpinner = true;
-                            });
-                            try {
-                              final newUser =
-                                  await _auth.createUserWithEmailAndPassword(
-                                      email: authProvider.email,
-                                      password: authProvider.password);
+                          try {
+                            final newUser =
+                                await _auth.createUserWithEmailAndPassword(
+                                    email: authProvider.email,
+                                    password: authProvider.password);
 
-                              authProvider.username = authProvider.name
-                                      .toLowerCase()
-                                      .split(" ")[0] +
-                                  authProvider.dob.substring(0, 2);
-                              print(
-                                  "Generated username is ${authProvider.username}");
-                              var user = newUser.user;
-                              await FirebaseAuth.instance.currentUser
-                                  .updateProfile(
-                                      displayName: authProvider.username);
-                              authProvider.uid = user.uid;
-                              authProvider.printDetails();
+                            authProvider.username =
+                                authProvider.name.toLowerCase().split(" ")[0] +
+                                    authProvider.dob.substring(0, 2);
+                            print(
+                                "Generated username is ${authProvider.username}");
+                            var user = newUser.user;
+                            await FirebaseAuth.instance.currentUser
+                                .updateProfile(
+                                    displayName: authProvider.username);
+                            authProvider.uid = user.uid;
+                            authProvider.printDetails();
 
-                              if (newUser != null) {
-                                Provider.of<AuthProvider>(context,
-                                        listen: false)
-                                    .addUserToDB();
-                                setState(() {
-                                  _showSuccessDialog(
-                                      "You are registered successfully.");
-                                  showSpinner = false;
-                                });
-                              }
-                            } catch (e) {
-                              print(e);
+                            if (newUser != null) {
+                              Provider.of<AuthProvider>(context, listen: false)
+                                  .addUserToDB();
                               setState(() {
-                                switch (e.code) {
-                                  case 'ERROR_OPERATION_NOT_ALLOWED':
-                                    _showErrorDialog(
-                                        "ERROR_OPERATION_NOT_ALLOWED");
-                                    break;
-                                  case 'ERROR_WEAK_PASSWORD':
-                                    _showErrorDialog("ERROR_WEAK_PASSWORD");
-                                    break;
-                                  case 'ERROR_INVALID_EMAIL':
-                                    _showErrorDialog("ERROR_INVALID_EMAIL");
-                                    break;
-                                  case 'ERROR_EMAIL_ALREADY_IN_USE':
-                                    _showErrorDialog(
-                                        "ERROR_EMAIL_ALREADY_IN_USE");
-                                    break;
-                                  case 'ERROR_INVALID_CREDENTIAL':
-                                    _showErrorDialog(
-                                        "ERROR_INVALID_CREDENTIAL");
-                                    break;
-                                  default:
-                                    _showErrorDialog(
-                                        "Unknown error has occurred.");
-                                    break;
-                                }
-                                showFloatingToast = true;
+                                _showSuccessDialog(
+                                    "You are registered successfully.");
                                 showSpinner = false;
                               });
                             }
-                          },
-                          child: Text(
-                            "Continue",
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              color: Colors.white,
-                            ),
+                          } catch (e) {
+                            print(e);
+                            setState(() {
+                              switch (e.code) {
+                                case 'ERROR_OPERATION_NOT_ALLOWED':
+                                  // _showErrorDialog(
+                                  //     "ERROR_OPERATION_NOT_ALLOWED");
+                                  _showSnackBar(
+                                      context, "ERROR_OPERATION_NOT_ALLOWED");
+                                  break;
+                                case 'ERROR_WEAK_PASSWORD':
+                                  // _showErrorDialog("ERROR_WEAK_PASSWORD");
+                                  _showSnackBar(context, "ERROR_WEAK_PASSWORD");
+                                  break;
+                                case 'ERROR_INVALID_EMAIL':
+                                  // _showErrorDialog("ERROR_INVALID_EMAIL");
+                                  _showSnackBar(context, "ERROR_INVALID_EMAIL");
+                                  break;
+                                case 'ERROR_EMAIL_ALREADY_IN_USE':
+                                  // _showErrorDialog(
+                                  //     "ERROR_EMAIL_ALREADY_IN_USE");
+                                  _showSnackBar(
+                                      context, "ERROR_EMAIL_ALREADY_IN_USE");
+                                  break;
+                                case 'ERROR_INVALID_CREDENTIAL':
+                                  // _showErrorDialog(
+                                  //     "ERROR_INVALID_CREDENTIAL");
+                                  _showSnackBar(
+                                      context, "ERROR_INVALID_CREDENTIAL");
+                                  break;
+                                default:
+                                  // _showErrorDialog(
+                                  //     "Unknown error has occurred.");
+                                  _showSnackBar(
+                                      context, "Unknown error has occurred");
+                                  break;
+                              }
+                              showFloatingToast = true;
+                              showSpinner = false;
+                            });
+                          }
+                        },
+                        child: Text(
+                          "Continue",
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            color: Colors.white,
                           ),
                         ),
                       ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.08),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            // onTap: press,
-                            child: Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal:
-                                      MediaQuery.of(context).size.width *
-                                          (10 / 375.0)),
-                              padding: EdgeInsets.all(
-                                  MediaQuery.of(context).size.width *
-                                      (10 / 375.0)),
-                              height: MediaQuery.of(context).size.height *
-                                  (50 / 812.0),
-                              width: MediaQuery.of(context).size.width *
-                                  (40 / 375.0),
-                              decoration: BoxDecoration(
-                                color: Color(0xFFF5F6F9),
-                                shape: BoxShape.circle,
-                              ),
-                              child: SvgPicture.asset(
-                                "assets/icons/google-icon.svg",
-                                height: 5.0,
-                              ),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.08),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          // onTap: press,
+                          child: Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: MediaQuery.of(context).size.width *
+                                    (10 / 375.0)),
+                            padding: EdgeInsets.all(
+                                MediaQuery.of(context).size.width *
+                                    (10 / 375.0)),
+                            height: MediaQuery.of(context).size.height *
+                                (50 / 812.0),
+                            width: MediaQuery.of(context).size.width *
+                                (40 / 375.0),
+                            decoration: BoxDecoration(
+                              color: Color(0xFFF5F6F9),
+                              shape: BoxShape.circle,
+                            ),
+                            child: SvgPicture.asset(
+                              "assets/icons/google-icon.svg",
+                              height: 5.0,
                             ),
                           ),
-                          GestureDetector(
-                            // onTap: press,
-                            child: Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal:
-                                      MediaQuery.of(context).size.width *
-                                          (10 / 375.0)),
-                              padding: EdgeInsets.all(
-                                  MediaQuery.of(context).size.width *
-                                      (11 / 375.0)),
-                              height: MediaQuery.of(context).size.height *
-                                  (50 / 812.0),
-                              width: MediaQuery.of(context).size.width *
-                                  (40 / 375.0),
-                              decoration: BoxDecoration(
-                                color: Color(0xFFF5F6F9),
-                                shape: BoxShape.circle,
-                              ),
-                              child: SvgPicture.asset(
-                                "assets/icons/facebook-2.svg",
-                              ),
+                        ),
+                        GestureDetector(
+                          // onTap: press,
+                          child: Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: MediaQuery.of(context).size.width *
+                                    (10 / 375.0)),
+                            padding: EdgeInsets.all(
+                                MediaQuery.of(context).size.width *
+                                    (11 / 375.0)),
+                            height: MediaQuery.of(context).size.height *
+                                (50 / 812.0),
+                            width: MediaQuery.of(context).size.width *
+                                (40 / 375.0),
+                            decoration: BoxDecoration(
+                              color: Color(0xFFF5F6F9),
+                              shape: BoxShape.circle,
                             ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height *
-                              (20 / 812.0)),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Already have an account? ",
+                            child: SvgPicture.asset(
+                              "assets/icons/facebook-2.svg",
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                        height:
+                            MediaQuery.of(context).size.height * (20 / 812.0)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Already have an account? ",
+                          style: TextStyle(
+                              fontSize: MediaQuery.of(context).size.width *
+                                  (14 / 375.0)),
+                        ),
+                        GestureDetector(
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignInScreen(),
+                            ),
+                          ),
+                          child: Text(
+                            "Sign In",
                             style: TextStyle(
-                                fontSize: MediaQuery.of(context).size.width *
-                                    (14 / 375.0)),
-                          ),
-                          GestureDetector(
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SignInScreen(),
-                              ),
-                            ),
-                            child: Text(
-                              "Sign In",
-                              style: TextStyle(
-                                fontSize: MediaQuery.of(context).size.width *
-                                    (14 / 375.0),
-                                color: Color(0xFFFF7643),
-                              ),
+                              fontSize: MediaQuery.of(context).size.width *
+                                  (14 / 375.0),
+                              color: Color(0xFFFF7643),
                             ),
                           ),
-                        ],
-                      ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height *
-                              (40 / 812.0)),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                        height:
+                            MediaQuery.of(context).size.height * (40 / 812.0)),
+                  ],
                 ),
               ),
             ),

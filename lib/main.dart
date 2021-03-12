@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:umeed_user_app/providers/announcements_provider.dart';
 import 'package:umeed_user_app/providers/bottom_navigation_provider.dart';
 import 'package:umeed_user_app/providers/complaint_provider.dart';
 import 'package:umeed_user_app/providers/dashboard_provider.dart';
@@ -40,6 +41,9 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider.value(
           value: DashboardProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: AnnouncementsProvider(),
         ),
       ],
       child: MaterialApp(

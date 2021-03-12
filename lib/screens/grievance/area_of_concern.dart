@@ -28,7 +28,7 @@ class _AreaOfConcernScreenState extends State<AreaOfConcernScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const curveHeight = 28.0;
+    const curveHeight = 26.0;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
@@ -100,10 +100,12 @@ class _AreaOfConcernScreenState extends State<AreaOfConcernScreen> {
                               areas_of_concern[index],
                               textAlign: TextAlign.center,
                               style: GoogleFonts.openSans(
-                                  textStyle: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 15.5,
-                                      fontWeight: FontWeight.w600)),
+                                textStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15.5,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ),
                             SizedBox(
                               height: 8,

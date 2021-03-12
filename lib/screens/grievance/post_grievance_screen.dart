@@ -688,25 +688,29 @@ class _PostGrievanceScreenState extends State<PostGrievanceScreen> {
                                 .ref()
                                 .child('${userData.uid}/$complaintID/file1')
                                 .putFile(file1);
-                            var downloadUrl1 = snapshot1.ref.getDownloadURL();
+                            var downloadUrl1 =
+                                await snapshot1.ref.getDownloadURL();
 
                             var snapshot2 = await _storage
                                 .ref()
                                 .child('${userData.uid}/$complaintID/file2')
                                 .putFile(file2);
-                            var downloadUrl2 = snapshot2.ref.getDownloadURL();
+                            var downloadUrl2 =
+                                await snapshot2.ref.getDownloadURL();
 
                             var snapshot3 = await _storage
                                 .ref()
                                 .child('${userData.uid}/$complaintID/file3')
                                 .putFile(file3);
-                            var downloadUrl3 = snapshot3.ref.getDownloadURL();
+                            var downloadUrl3 =
+                                await snapshot3.ref.getDownloadURL();
 
                             var snapshot4 = await _storage
                                 .ref()
                                 .child('${userData.uid}/$complaintID/file4')
                                 .putFile(file4);
-                            var downloadUrl4 = snapshot4.ref.getDownloadURL();
+                            var downloadUrl4 =
+                                await snapshot4.ref.getDownloadURL();
 
                             // var downloadUrl1 = await _storage.ref().getDownloadURL();
                             // var downloadUrl2 = await _storage.ref().getDownloadURL();
