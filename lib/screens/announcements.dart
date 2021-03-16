@@ -132,7 +132,15 @@ class _AnnouncementsScreenState extends State<AnnouncementsScreen> {
               itemCount: snapshot.data.length,
             );
           } else {
-            return Text('No announcements');
+            return Center(
+              child: Text(
+                'No announcements',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18.0,
+                ),
+              ),
+            );
           }
         },
       ),

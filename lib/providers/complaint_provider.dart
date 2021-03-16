@@ -69,7 +69,7 @@ class ComplaintProvider with ChangeNotifier {
       print("USER ID IS : $userID");
     }
     String url =
-        "https://xk01e5qt90.execute-api.us-east-1.amazonaws.com/v1/user/getallcomplaints";
+        "https://xk01e5qt90.execute-api.us-east-1.amazonaws.com/v1/user/getallcomplaints/$userID";
 
     final response = await http.get(url);
     print(response.statusCode);
@@ -77,42 +77,65 @@ class ComplaintProvider with ChangeNotifier {
     // print(map);
     // final extractedComplaints = map['Items'];
     List<dynamic> extractedComplaints = map['Items'];
-    print(extractedComplaints);
+    // print(extractedComplaints);
     final List<Complaint> complaints = [];
 
     for (var i = 0; i < extractedComplaints.length; i++) {
-      print("EXTRACTED ELEMENTS AT I POS ${extractedComplaints[i]}");
+      // print("EXTRACTED ELEMENTS AT I POS ${extractedComplaints[i]}");
       complaints.add(
         Complaint(
           id: extractedComplaints[i]['id'],
           comp_user_id: extractedComplaints[i]['comp_user_id'],
           user_email: extractedComplaints[i]['comp_user_email'],
-          landmark: extractedComplaints[i]['comp_user_address'],
+          landmark: extractedComplaints[i]['landmark'],
           contact: extractedComplaints[i]['contact'],
           date: extractedComplaints[i]['date'],
           desc: extractedComplaints[i]['description'],
           location: extractedComplaints[i]['location'],
           name: extractedComplaints[i]['comp_user_name'],
           area_of_comp: extractedComplaints[i]['area_of_comp'],
+          imageUrl1: extractedComplaints[i]['imageUrl1'],
+          imageUrl2: extractedComplaints[i]['imageUrl2'],
+          imageUrl3: extractedComplaints[i]['imageUrl3'],
+          imageUrl4: extractedComplaints[i]['imageUrl4'],
         ),
       );
     }
-    // extractedComplaints.forEach((element) {
-    //   complaints.add(
-    //     Complaint(
-    //         id: element['id'],
-    //         address: element['address'],
-    //         contact: element['contact'],
-    //         date: element['date'],
-    //         desc: element['description'],
-    //         location: element['location'],
-    //         name: element['name']),
-    //   );
-    // });
     notifyListeners();
     _complaints = complaints;
-    print("THIS IS COMPLAINTS LIST $_complaints");
+    // print("THIS IS COMPLAINTS LIST $_complaints");
     return _complaints;
+  }
+
+  Future<Complaint> fetchUserComplaintByID(String id) async {
+    String url =
+        "https://xk01e5qt90.execute-api.us-east-1.amazonaws.com/v1/user/complaintid/$id";
+
+    final response = await http.get(url);
+    print(response.statusCode);
+    Map<String, dynamic> extractedComplaint = jsonDecode(response.body);
+    print("THIS IS THE FETCH USER COMPLAINT BY ID DATA $extractedComplaint");
+
+    Complaint complaintData;
+    complaintData = Complaint(
+      id: extractedComplaint['id'],
+      comp_user_id: extractedComplaint['comp_user_id'],
+      user_email: extractedComplaint['comp_user_email'],
+      landmark: extractedComplaint['landmark'],
+      contact: extractedComplaint['contact'],
+      date: extractedComplaint['date'],
+      desc: extractedComplaint['description'],
+      location: extractedComplaint['location'],
+      name: extractedComplaint['comp_user_name'],
+      area_of_comp: extractedComplaint['area_of_comp'],
+      imageUrl1: extractedComplaint['imageUrl1'],
+      imageUrl2: extractedComplaint['imageUrl2'],
+      imageUrl3: extractedComplaint['imageUrl3'],
+      imageUrl4: extractedComplaint['imageUrl4'],
+    );
+    print(extractedComplaint['description']);
+    notifyListeners();
+    return complaintData;
   }
 
   postComplaintToDB() async {
@@ -134,48 +157,4 @@ class ComplaintProvider with ChangeNotifier {
     print("POSTING COMPLAINT RESPONSE BODY ${response.body}");
     notifyListeners();
   }
-
-// void postUserData(File imageFile, String id, String name, String email,
-//     String phone, String token) async {
-//   var url = "https://bodyappdefault.herokuapp.com/user/profile";
-//
-//   var request = new http.MultipartRequest("PUT", Uri.parse(url));
-//   request.headers.addAll(
-//       {"Accept": "application/json", "Authorization": "Bearer " + token});
-//   request.fields['user_id'] = id;
-//   request.fields['user_name'] = name;
-//   request.fields['user_email'] = email;
-//   request.fields['user_phone'] = phone;
-//   request.files.add(new http.MultipartFile.fromBytes(
-//       'file', await File.fromUri(Uri.parse(imageFile.path)).readAsBytes(),
-//       contentType: MediaType(
-//           'image', 'jpeg'))); // var data = new Map<String, dynamic>();
-//   // data['user_id'] = id;
-//   // data['user_name'] = name;
-//   // data['user_email'] = email;
-//   // data['user_phone'] = phone;
-//   // var data = {
-//   //   "user_id": id,
-//   //   "user_name": name,
-//   //   "user_email": email,
-//   //   "user_phone": phone
-//   // };
-//
-//   // final response = await http.put(url,
-//   //     headers: {HttpHeaders.authorizationHeader: "Basic $token"}, body: data);
-//   final response = await request.send();
-//   print("edit profile" + response.statusCode.toString());
-//
-//   // const url1 = "https://bodyappdefault.herokuapp.com/user/profile";
-//
-//   // final response1 = await http
-//   //     .get(url1, headers: {HttpHeaders.authorizationHeader: "Basic $token"});
-//
-//   // Map<String, dynamic> map = jsonDecode(response1.body);
-//   // final extractedUserData = map['data'];
-//   // print(extractedUserData);
-//   getUserData(token);
-//   notifyListeners();
-// }
-
 }

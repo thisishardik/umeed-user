@@ -10,6 +10,9 @@ import 'package:umeed_user_app/screens/dashboard.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:umeed_user_app/screens/splash.dart';
+import 'package:umeed_user_app/providers/help_provider.dart';
+
+/// ToDo  PUT BACK BUTTON INTERCEPTORS EVERYWHERE.
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +31,15 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
+          value: BottomNavigationProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: DashboardProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: HelpProvider(),
+        ),
+        ChangeNotifierProvider.value(
           value: UserProvider(),
         ),
         ChangeNotifierProvider.value(
@@ -35,12 +47,6 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider.value(
           value: ComplaintProvider(),
-        ),
-        ChangeNotifierProvider.value(
-          value: BottomNavigationProvider(),
-        ),
-        ChangeNotifierProvider.value(
-          value: DashboardProvider(),
         ),
         ChangeNotifierProvider.value(
           value: AnnouncementsProvider(),

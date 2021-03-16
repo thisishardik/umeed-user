@@ -27,8 +27,8 @@ class UserProvider with ChangeNotifier {
     Map<String, dynamic> extractedUserData = jsonDecode(response.body);
     // print(map);
     // final extractedUserData = map['data'];
-    // print("EXTRACTED USER DATA $extractedUserData");
-    // print("UID IS ${extractedUserData['uid']}");
+    print("EXTRACTED USER DATA $extractedUserData");
+    print("UID IS ${extractedUserData['uid']}");
     _userData = AppUser(
         uid: extractedUserData['uid'],
         name: extractedUserData['name'],

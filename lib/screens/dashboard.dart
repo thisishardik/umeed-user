@@ -8,6 +8,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 import 'package:umeed_user_app/components/bottom_nav_bar.dart';
 import 'package:umeed_user_app/helpers/user.dart';
@@ -16,7 +17,8 @@ import 'package:umeed_user_app/providers/complaint_provider.dart';
 import 'package:umeed_user_app/providers/user_provider.dart';
 import 'package:umeed_user_app/screens/announcements.dart';
 import 'package:umeed_user_app/screens/grievance/area_of_concern.dart';
-import 'package:umeed_user_app/screens/announcements_test.dart';
+import 'file:///F:/Android/AndroidStudioProjects/umeed_user_app/umeed_user_app/lib/dummy/announcements_test.dart';
+import 'package:umeed_user_app/screens/grievance/grievance_history.dart';
 
 class Dashboard extends StatefulWidget {
   static String id = "/dashboard";
@@ -44,6 +46,7 @@ class _DashboardState extends State<Dashboard> {
   void initState() {
     super.initState();
     checkPermissions();
+    Provider.of<UserProvider>(context, listen: false).getUserProfileData();
   }
 
   @override
@@ -163,11 +166,18 @@ class _DashboardState extends State<Dashboard> {
                               fontWeight: FontWeight.w600),
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => GrievanceHistory(),
+                          ),
+                        );
+                      },
                     ),
                     ListTile(
                       leading: Icon(
-                        Icons.adb,
+                        Icons.call,
                         color: Colors.blueGrey,
                         size: 22.0,
                       ),
