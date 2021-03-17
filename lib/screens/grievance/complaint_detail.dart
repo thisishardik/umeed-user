@@ -1,10 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:umeed_user_app/components/bottom_nav_bar.dart';
 import 'package:umeed_user_app/helpers/user.dart';
 import 'package:umeed_user_app/providers/complaint_provider.dart';
 import 'package:umeed_user_app/providers/user_provider.dart';
+import 'package:umeed_user_app/screens/help_screen.dart';
+import 'package:umeed_user_app/screens/info_screen.dart';
 
 class ComplaintDetailScreen extends StatefulWidget {
   final String id;
@@ -16,13 +20,13 @@ class ComplaintDetailScreen extends StatefulWidget {
 
 class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
   AppUser userData;
+  int index = 0;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
     userData = Provider.of<UserProvider>(context, listen: false).userData;
-    // Provider.of<AuthProvider>(context, listen: false).printDetails();
     // authProvider = Provider.of<AuthProvider>(context, listen: false);
   }
 
@@ -53,14 +57,87 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
           )
         ],
       ),
-      bottomNavigationBar: BottomNavigation(),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: index,
+        onTap: (index) {
+          if (index == 0) {
+            print("DUHH");
+          }
+          if (index == 1) {
+            Navigator.push(
+              context,
+              PageTransition(
+                child: InfoScreen(),
+                type: PageTransitionType.fade,
+              ),
+            );
+          }
+          if (index == 2) {
+            Navigator.push(
+              context,
+              PageTransition(
+                child: HelpScreen(),
+                type: PageTransitionType.fade,
+              ),
+            );
+          }
+          if (index == 3) {}
+          if (index == 4) {}
+        },
+        elevation: 100.0,
+        selectedItemColor: Color(0xff0c18fb),
+        // selectedItemColor: Colors.orange,
+        unselectedItemColor: Colors.grey[600],
+        showSelectedLabels: true,
+        showUnselectedLabels: false,
+        selectedIconTheme: IconThemeData(
+          size: 26,
+        ),
+        unselectedIconTheme: IconThemeData(
+          size: 23,
+        ),
+        type: BottomNavigationBarType.shifting,
+        backgroundColor: Colors.white,
+        items: [
+          BottomNavigationBarItem(
+            label: "Home",
+            icon: Icon(
+              AntDesign.home,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: "Info",
+            icon: Icon(
+              AntDesign.infocirlce,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: "Help",
+            icon: Icon(
+              AntDesign.phone,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: "Share",
+            icon: Icon(
+              AntDesign.sharealt,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: "Profile",
+            icon: Icon(
+              AntDesign.user,
+            ),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: FutureBuilder(
           future: Provider.of<ComplaintProvider>(context)
               .fetchUserComplaintByID(widget.id),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              print("SNAPSHOT DATA : ${snapshot.data}");
+              // print("SNAPSHOT DATA : ${snapshot.data}");
               var userComplaintData = snapshot.data;
               return Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -74,14 +151,92 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
-                      children: <Widget>[Text("Blah Blah")],
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Complaint ID",
+                            ),
+                            Text(
+                              "${userComplaintData.id}",
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Name",
+                            ),
+                            Text(
+                              "${userComplaintData.name}",
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Phone Number",
+                            ),
+                            Text(
+                              "${userComplaintData.contact}",
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Email",
+                            ),
+                            Text(
+                              "${userComplaintData.user_email}",
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Posted On",
+                            ),
+                            Text(
+                              "${userComplaintData.date}",
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Landmark",
+                            ),
+                            Text(
+                              "${userComplaintData.landmark}",
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Description",
+                            ),
+                            Text(
+                              "${userComplaintData.desc}",
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),
               );
             } else {
               print("SNAPSHOT DATA : ${snapshot.data}");
-              print("COMPLAINT ID FOR API IS : ${widget.id}");
+              // print("COMPLAINT ID FOR API IS : ${widget.id}");
               return Align(
                   alignment: Alignment.center,
                   child: CircularProgressIndicator());

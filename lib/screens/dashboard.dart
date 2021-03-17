@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:geocoder/model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,8 @@ import 'package:umeed_user_app/screens/announcements.dart';
 import 'package:umeed_user_app/screens/grievance/area_of_concern.dart';
 import 'file:///F:/Android/AndroidStudioProjects/umeed_user_app/umeed_user_app/lib/dummy/announcements_test.dart';
 import 'package:umeed_user_app/screens/grievance/grievance_history.dart';
+import 'package:umeed_user_app/screens/help_screen.dart';
+import 'package:umeed_user_app/screens/info_screen.dart';
 
 class Dashboard extends StatefulWidget {
   static String id = "/dashboard";
@@ -31,6 +34,7 @@ class _DashboardState extends State<Dashboard> {
   AppUser userData;
   AuthProvider authProvider;
   final _auth = FirebaseAuth.instance;
+  int index = 0;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -41,6 +45,10 @@ class _DashboardState extends State<Dashboard> {
   }
 
   String uid = "";
+
+  void _showSnackBar(BuildContext context, String text) {
+    Scaffold.of(context).showSnackBar(SnackBar(content: Text(text)));
+  }
 
   @override
   void initState() {
@@ -82,7 +90,12 @@ class _DashboardState extends State<Dashboard> {
             IconButton(
               icon: Icon(Icons.adb),
               color: Colors.black,
-              onPressed: () {},
+              onPressed: () async {
+                await DefaultCacheManager().emptyCache();
+                setState(() {
+                  _showSnackBar(context, "Cache cleared");
+                });
+              },
             )
           ],
         ),
@@ -257,7 +270,80 @@ class _DashboardState extends State<Dashboard> {
             ),
           ),
         ),
-        bottomNavigationBar: BottomNavigation(),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: index,
+          onTap: (index) {
+            if (index == 0) {
+              print("DUHH");
+            }
+            if (index == 1) {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: InfoScreen(),
+                  type: PageTransitionType.fade,
+                ),
+              );
+            }
+            if (index == 2) {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: HelpScreen(),
+                  type: PageTransitionType.fade,
+                ),
+              );
+            }
+            if (index == 3) {}
+            if (index == 4) {}
+          },
+          elevation: 100.0,
+          selectedItemColor: Color(0xff0c18fb),
+          // selectedItemColor: Colors.orange,
+          unselectedItemColor: Colors.grey[600],
+          showSelectedLabels: true,
+          showUnselectedLabels: false,
+          selectedIconTheme: IconThemeData(
+            size: 26,
+          ),
+          unselectedIconTheme: IconThemeData(
+            size: 23,
+          ),
+          type: BottomNavigationBarType.shifting,
+          backgroundColor: Colors.white,
+          items: [
+            BottomNavigationBarItem(
+              label: "Home",
+              icon: Icon(
+                AntDesign.home,
+              ),
+            ),
+            BottomNavigationBarItem(
+              label: "Info",
+              icon: Icon(
+                AntDesign.infocirlce,
+              ),
+            ),
+            BottomNavigationBarItem(
+              label: "Help",
+              icon: Icon(
+                AntDesign.phone,
+              ),
+            ),
+            BottomNavigationBarItem(
+              label: "Share",
+              icon: Icon(
+                AntDesign.sharealt,
+              ),
+            ),
+            BottomNavigationBarItem(
+              label: "Profile",
+              icon: Icon(
+                AntDesign.user,
+              ),
+            ),
+          ],
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [

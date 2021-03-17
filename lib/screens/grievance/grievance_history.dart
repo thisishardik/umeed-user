@@ -103,7 +103,7 @@ class _GrievanceHistoryState extends State<GrievanceHistory> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "${userData.name}",
+                                        "${userData.username}",
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
                                       ),
@@ -111,7 +111,7 @@ class _GrievanceHistoryState extends State<GrievanceHistory> {
                                         height: 5.0,
                                       ),
                                       Text(
-                                        "${complaintData.date.toString().substring(0, 20)}",
+                                        "${complaintData.date.toString().substring(0, 19)}",
                                         style: TextStyle(
                                           fontSize: 11.5,
                                         ),
@@ -127,7 +127,7 @@ class _GrievanceHistoryState extends State<GrievanceHistory> {
                                     MaterialPageRoute(
                                       builder: (context) =>
                                           ComplaintDetailScreen(
-                                        id: complaintData.id,
+                                        id: complaintData.id.toString(),
                                       ),
                                     ),
                                   );

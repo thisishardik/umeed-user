@@ -108,34 +108,34 @@ class ComplaintProvider with ChangeNotifier {
   }
 
   Future<Complaint> fetchUserComplaintByID(String id) async {
-    String url =
+    var url =
         "https://xk01e5qt90.execute-api.us-east-1.amazonaws.com/v1/user/complaintid/$id";
 
     final response = await http.get(url);
     print(response.statusCode);
     Map<String, dynamic> extractedComplaint = jsonDecode(response.body);
-    print("THIS IS THE FETCH USER COMPLAINT BY ID DATA $extractedComplaint");
+    // print("THIS IS THE FETCH USER COMPLAINT BY ID DATA $extractedComplaint");
 
-    Complaint complaintData;
-    complaintData = Complaint(
+    Complaint complaint;
+    complaint = Complaint(
       id: extractedComplaint['id'],
       comp_user_id: extractedComplaint['comp_user_id'],
       user_email: extractedComplaint['comp_user_email'],
-      landmark: extractedComplaint['landmark'],
-      contact: extractedComplaint['contact'],
-      date: extractedComplaint['date'],
+      landmark: extractedComplaint['landmark'], //
+      contact: extractedComplaint['contact'], //
+      date: extractedComplaint['date'], //
       desc: extractedComplaint['description'],
-      location: extractedComplaint['location'],
-      name: extractedComplaint['comp_user_name'],
-      area_of_comp: extractedComplaint['area_of_comp'],
-      imageUrl1: extractedComplaint['imageUrl1'],
-      imageUrl2: extractedComplaint['imageUrl2'],
-      imageUrl3: extractedComplaint['imageUrl3'],
-      imageUrl4: extractedComplaint['imageUrl4'],
+      location: extractedComplaint['location'], //
+      name: extractedComplaint['comp_user_name'], //
+      area_of_comp: extractedComplaint['area_of_comp'], //
+      imageUrl1: extractedComplaint['imageUrl1'], //
+      imageUrl2: extractedComplaint['imageUrl2'], //
+      imageUrl3: extractedComplaint['imageUrl3'], //
+      imageUrl4: extractedComplaint['imageUrl4'], //
     );
-    print(extractedComplaint['description']);
+    print(complaint.comp_user_id);
     notifyListeners();
-    return complaintData;
+    return complaint;
   }
 
   postComplaintToDB() async {

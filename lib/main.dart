@@ -11,10 +11,12 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:umeed_user_app/screens/splash.dart';
 import 'package:umeed_user_app/providers/help_provider.dart';
+import 'package:umeed_user_app/components/service_locator.dart';
 
 /// ToDo  PUT BACK BUTTON INTERCEPTORS EVERYWHERE.
 
 void main() async {
+  setupLocator();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -50,6 +52,9 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider.value(
           value: AnnouncementsProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: HelpProvider(),
         ),
       ],
       child: MaterialApp(
