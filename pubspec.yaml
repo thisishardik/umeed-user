@@ -59,6 +59,14 @@ dependencies:
   url_launcher: ^6.0.2
   get_it: ^6.0.0
   flutter_cache_manager: ^2.1.2
+  cached_network_image: ^2.5.1
+  webview_flutter: ^2.0.2
+  vibration: ^1.7.3
+  rive: ^0.6.8
+
+
+
+
 
 
 

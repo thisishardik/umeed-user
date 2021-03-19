@@ -22,6 +22,7 @@ import 'file:///F:/Android/AndroidStudioProjects/umeed_user_app/umeed_user_app/l
 import 'package:umeed_user_app/screens/grievance/grievance_history.dart';
 import 'package:umeed_user_app/screens/help_screen.dart';
 import 'package:umeed_user_app/screens/info_screen.dart';
+import 'package:umeed_user_app/screens/news/news_home.dart';
 
 class Dashboard extends StatefulWidget {
   static String id = "/dashboard";
@@ -91,10 +92,8 @@ class _DashboardState extends State<Dashboard> {
               icon: Icon(Icons.adb),
               color: Colors.black,
               onPressed: () async {
+                _showSnackBar(context, "Cache cleared");
                 await DefaultCacheManager().emptyCache();
-                setState(() {
-                  _showSnackBar(context, "Cache cleared");
-                });
               },
             )
           ],
@@ -204,7 +203,14 @@ class _DashboardState extends State<Dashboard> {
                               fontWeight: FontWeight.w600),
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HelpScreen(),
+                          ),
+                        );
+                      },
                     ),
                     ListTile(
                       leading: Icon(
@@ -246,7 +252,7 @@ class _DashboardState extends State<Dashboard> {
                         }),
                     SizedBox(height: 20.0),
                     Container(
-                      height: 1.0,
+                      height: 0.7,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                         color: Colors.blueGrey,
@@ -280,7 +286,7 @@ class _DashboardState extends State<Dashboard> {
               Navigator.push(
                 context,
                 PageTransition(
-                  child: InfoScreen(),
+                  child: NewsHomeScreen(),
                   type: PageTransitionType.fade,
                 ),
               );
@@ -319,9 +325,9 @@ class _DashboardState extends State<Dashboard> {
               ),
             ),
             BottomNavigationBarItem(
-              label: "Info",
+              label: "News",
               icon: Icon(
-                AntDesign.infocirlce,
+                FontAwesome5.newspaper,
               ),
             ),
             BottomNavigationBarItem(
@@ -347,6 +353,42 @@ class _DashboardState extends State<Dashboard> {
         body: SingleChildScrollView(
           child: Column(
             children: [
+              Container(
+                padding: EdgeInsets.all(8.0),
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Colors.lightBlueAccent.withOpacity(0.2),
+                ),
+                constraints: BoxConstraints(
+                  minHeight: 40.0,
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Icon(
+                      Icons.remove_red_eye,
+                      size: 15.0,
+                    ),
+                    SizedBox(
+                      width: 10.0,
+                    ),
+                    Container(
+                      child: Text(
+                        '10 people are using UMEED to solve their grievances.',
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
               GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -490,132 +532,261 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.blueGrey,
-                      width: 2.0,
-                    ),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(2.5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
                     child: Container(
-                      constraints: BoxConstraints(
-                        minWidth: MediaQuery.of(context).size.width,
-                        minHeight: 120.0,
-                      ),
                       decoration: BoxDecoration(
-                        color: Colors.orange,
+                        border: Border.all(
+                          color: Colors.blueGrey,
+                          width: 2.0,
+                        ),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.5),
+                        child: Container(
+                          constraints: BoxConstraints(
+                            minHeight: 120.0,
+                            maxWidth: MediaQuery.of(context).size.width * 0.40,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.orange,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Container(
-                                constraints: BoxConstraints(
-                                  maxWidth:
-                                      MediaQuery.of(context).size.width * 0.5,
-                                ),
-                                child: Text(
-                                  'WHERE I AM',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 25.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      'WHERE I AM',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 21.0,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                  Text(
+                                    'Explore government',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                'Explore government',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.w400),
-                              ),
+                              Container(),
+                              Container(),
+                              Container(),
                             ],
                           ),
-                          Container(),
-                          Container(),
-                          Container(),
-                          Image.asset(
-                            "assets/images/grief.png",
-                            height: MediaQuery.of(context).size.height * 0.075,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.blueGrey,
+                          width: 2.0,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.5),
+                        child: Container(
+                          constraints: BoxConstraints(
+                            minHeight: 120.0,
+                            maxWidth: MediaQuery.of(context).size.width * 0.40,
                           ),
-                        ],
+                          decoration: BoxDecoration(
+                            color: Colors.pink,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      'NEAR ME',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 21.0,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                  Text(
+                                    'Find out things nearby your location',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                ],
+                              ),
+                              Container(),
+                              Container(),
+                              Container(),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NewsHomeScreen(),
+                    ),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.blueGrey,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.5),
+                      child: Container(
+                        constraints: BoxConstraints(
+                          minWidth: MediaQuery.of(context).size.width,
+                          minHeight: 120.0,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.cyan,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  constraints: BoxConstraints(
+                                    maxWidth:
+                                        MediaQuery.of(context).size.width * 0.5,
+                                  ),
+                                  child: Text(
+                                    'NewsByUmeed',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 25.0,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  "Catch up with what's going on in the country",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ],
+                            ),
+                            Container(),
+                            Container(),
+                            Container(),
+                            Image.asset(
+                              "assets/images/grief.png",
+                              height:
+                                  MediaQuery.of(context).size.height * 0.075,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.blueGrey,
-                      width: 2.0,
-                    ),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(2.5),
-                    child: Container(
-                      constraints: BoxConstraints(
-                        minWidth: MediaQuery.of(context).size.width,
-                        minHeight: 120.0,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.pink,
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                constraints: BoxConstraints(
-                                  maxWidth:
-                                      MediaQuery.of(context).size.width * 0.5,
-                                ),
-                                child: Text(
-                                  'NEAR ME',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 25.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                              Text(
-                                'Find out nearby police stations and\n helpline centers.',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                          Container(),
-                          Container(),
-                          Container(),
-                          Image.asset(
-                            "assets/images/grief.png",
-                            height: MediaQuery.of(context).size.height * 0.075,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+              SizedBox(
+                height: 60.0,
               ),
+              // Container(
+              //   margin: const EdgeInsets.only(top: 20.0),
+              //   padding: const EdgeInsets.all(15.0),
+              //   height: 400.0,
+              //   color: Colors.grey[200],
+              //   child: Stack(
+              //     children: <Widget>[
+              //       // Positioned(
+              //       //   right: 15.0,
+              //       //   top: 50.0,
+              //       //   child: Image(
+              //       //     image: AssetImage('assets/images/body_logo.png'),
+              //       //   ),
+              //       // ),
+              //       Column(
+              //         crossAxisAlignment: CrossAxisAlignment.stretch,
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         children: <Widget>[
+              //           Text(
+              //             'TAKE\n\CARE',
+              //             style: TextStyle(
+              //               color: Colors.grey[400],
+              //               fontSize: 75.0,
+              //               fontFamily: 'Roboto',
+              //               letterSpacing: 0.2,
+              //               height: 0.8,
+              //             ),
+              //           ),
+              //           SizedBox(
+              //             height: 24.0,
+              //           ),
+              //           Text(
+              //             'MADE WITH LOVE',
+              //             style: Theme.of(context)
+              //                 .textTheme
+              //                 .bodyText1
+              //                 .copyWith(color: Colors.grey),
+              //           ),
+              //           Text(
+              //             'UMEED APP, SRMIST, Tamil Nadu',
+              //             style: Theme.of(context)
+              //                 .textTheme
+              //                 .bodyText1
+              //                 .copyWith(color: Colors.grey),
+              //           ),
+              //           SizedBox(
+              //             height: 48.0,
+              //           ),
+              //           Row(
+              //             children: <Widget>[
+              //               Container(
+              //                 height: 1.0,
+              //                 width: MediaQuery.of(context).size.width / 4,
+              //                 color: Colors.grey,
+              //               ),
+              //             ],
+              //           )
+              //         ],
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),

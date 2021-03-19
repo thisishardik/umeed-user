@@ -19,6 +19,7 @@ import 'package:umeed_user_app/providers/location_provider.dart';
 import 'package:umeed_user_app/providers/user_provider.dart';
 import 'package:umeed_user_app/screens/grievance/success_screen.dart';
 import 'package:platform_alert_dialog/platform_alert_dialog.dart';
+import 'package:vibration/vibration.dart';
 
 class PostGrievanceScreen extends StatefulWidget {
   String aoc;
@@ -741,7 +742,7 @@ class _PostGrievanceScreenState extends State<PostGrievanceScreen> {
                         complaintProvider.imageUrl2 = imageUrl2;
                         complaintProvider.imageUrl3 = imageUrl3;
                         complaintProvider.imageUrl4 = imageUrl4;
-
+                        Vibration.vibrate();
                         Provider.of<ComplaintProvider>(context, listen: false)
                             .postComplaintToDB();
                         _btnController.success();

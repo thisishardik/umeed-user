@@ -420,41 +420,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             }
                           } catch (e) {
                             print(e);
+
+                            switch (e.code) {
+                              case 'ERROR_OPERATION_NOT_ALLOWED':
+                                _showErrorDialog("ERROR_OPERATION_NOT_ALLOWED");
+                                break;
+                              case 'ERROR_WEAK_PASSWORD':
+                                // _showErrorDialog("ERROR_WEAK_PASSWORD");
+                                _showSnackBar(context, "ERROR_WEAK_PASSWORD");
+                                break;
+                              case 'ERROR_INVALID_EMAIL':
+                                // _showErrorDialog("ERROR_INVALID_EMAIL");
+                                _showSnackBar(context, "ERROR_INVALID_EMAIL");
+                                break;
+                              case 'ERROR_EMAIL_ALREADY_IN_USE':
+                                // _showErrorDialog(
+                                //     "ERROR_EMAIL_ALREADY_IN_USE");
+                                _showSnackBar(
+                                    context, "ERROR_EMAIL_ALREADY_IN_USE");
+                                break;
+                              case 'ERROR_INVALID_CREDENTIAL':
+                                // _showErrorDialog(
+                                //     "ERROR_INVALID_CREDENTIAL");
+                                _showSnackBar(
+                                    context, "ERROR_INVALID_CREDENTIAL");
+                                break;
+                              default:
+                                // _showErrorDialog(
+                                //     "Unknown error has occurred.");
+                                _showSnackBar(
+                                    context, "Unknown error has occurred");
+                                break;
+                            }
                             setState(() {
-                              switch (e.code) {
-                                case 'ERROR_OPERATION_NOT_ALLOWED':
-                                  // _showErrorDialog(
-                                  //     "ERROR_OPERATION_NOT_ALLOWED");
-                                  _showSnackBar(
-                                      context, "ERROR_OPERATION_NOT_ALLOWED");
-                                  break;
-                                case 'ERROR_WEAK_PASSWORD':
-                                  // _showErrorDialog("ERROR_WEAK_PASSWORD");
-                                  _showSnackBar(context, "ERROR_WEAK_PASSWORD");
-                                  break;
-                                case 'ERROR_INVALID_EMAIL':
-                                  // _showErrorDialog("ERROR_INVALID_EMAIL");
-                                  _showSnackBar(context, "ERROR_INVALID_EMAIL");
-                                  break;
-                                case 'ERROR_EMAIL_ALREADY_IN_USE':
-                                  // _showErrorDialog(
-                                  //     "ERROR_EMAIL_ALREADY_IN_USE");
-                                  _showSnackBar(
-                                      context, "ERROR_EMAIL_ALREADY_IN_USE");
-                                  break;
-                                case 'ERROR_INVALID_CREDENTIAL':
-                                  // _showErrorDialog(
-                                  //     "ERROR_INVALID_CREDENTIAL");
-                                  _showSnackBar(
-                                      context, "ERROR_INVALID_CREDENTIAL");
-                                  break;
-                                default:
-                                  // _showErrorDialog(
-                                  //     "Unknown error has occurred.");
-                                  _showSnackBar(
-                                      context, "Unknown error has occurred");
-                                  break;
-                              }
                               showFloatingToast = true;
                               showSpinner = false;
                             });

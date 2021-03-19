@@ -9,6 +9,7 @@ import 'package:umeed_user_app/providers/help_provider.dart';
 import 'package:umeed_user_app/components/service_locator.dart';
 import 'package:umeed_user_app/screens/dashboard.dart';
 import 'package:umeed_user_app/screens/info_screen.dart';
+import 'package:umeed_user_app/screens/news/news_home.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HelpScreen extends StatefulWidget {
@@ -55,7 +56,7 @@ class _HelpScreenState extends State<HelpScreen> {
           onPressed: () => Navigator.popAndPushNamed(context, '/dashboard'),
         ),
         title: Text(
-          'Helpline Service',
+          'Indian Helpline Services',
           style: TextStyle(
             color: Colors.black,
           ),
@@ -114,7 +115,7 @@ class _HelpScreenState extends State<HelpScreen> {
             Navigator.push(
               context,
               PageTransition(
-                child: InfoScreen(),
+                child: NewsHomeScreen(),
                 type: PageTransitionType.fade,
               ),
             );
@@ -183,12 +184,18 @@ class _HelpScreenState extends State<HelpScreen> {
               padding: const EdgeInsets.only(top: 8.0),
               child: ListTile(
                 tileColor: Colors.white,
-                leading:
-                    Image.asset("assets/helpline/${helpline_images[index]}"),
+                leading: Image.asset(
+                  "assets/helpline/${helpline_images[index]}",
+                  width: MediaQuery.of(context).size.width * 0.13,
+                  height: MediaQuery.of(context).size.height * 0.13,
+                ),
                 title: Text(
                   '${helpline_services[index]}',
                 ),
-                subtitle: Text('${helpline_numbers[index]}'),
+                subtitle: Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text('${helpline_numbers[index]}'),
+                ),
                 trailing: OutlinedButton(
                   onPressed: () {
                     _service.call(helpline_numbers[index]);
@@ -200,7 +207,7 @@ class _HelpScreenState extends State<HelpScreen> {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Icon(
                       Icons.phone,
                       color: Colors.teal,
