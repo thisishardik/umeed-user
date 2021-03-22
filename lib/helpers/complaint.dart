@@ -13,6 +13,7 @@ class Complaint {
   final String imageUrl2;
   final String imageUrl3;
   final String imageUrl4;
+  final String status;
 
   Complaint({
     this.id,
@@ -29,5 +30,6 @@ class Complaint {
     this.imageUrl2,
     this.imageUrl3,
     this.imageUrl4,
+    this.status,
   });
 }

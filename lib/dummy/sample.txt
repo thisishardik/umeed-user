@@ -554,3 +554,27 @@
                                                          geocoder: ^0.2.1
                                                          location_permissions: ^3.0.0+1
                                                          file_picker: ^3.0.0
+
+                                                         Container(
+                                                                                             decoration: BoxDecoration(
+                                                                                               border: Border.all(
+                                                                                                 color: complaintData.status == 'POSTED'
+                                                                                                     ? Colors.green
+                                                                                                     : complaintData.status == 'CLOSED'
+                                                                                                         ? Colors.red
+                                                                                                         : Colors.yellow,
+                                                                                                 width: 4.0,
+                                                                                               ),
+                                                                                               borderRadius: BorderRadius.circular(7.0),
+                                                                                             ),
+                                                                                             child: Padding(
+                                                                                               padding: const EdgeInsets.all(8.0),
+                                                                                               child: Text(
+                                                                                                 complaintData.status,
+                                                                                                 style: TextStyle(
+                                                                                                   color: Colors.blueGrey,
+                                                                                                   fontWeight: FontWeight.w500,
+                                                                                                 ),
+                                                                                               ),
+                                                                                             ),
+                                                                                           ),

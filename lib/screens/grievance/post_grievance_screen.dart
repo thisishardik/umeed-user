@@ -35,13 +35,18 @@ class _PostGrievanceScreenState extends State<PostGrievanceScreen> {
   Location location = Location();
   final _storage = FirebaseStorage.instance;
   List<Address> myLocation;
+  String locality;
 
   final RoundedLoadingButtonController _btnController =
       new RoundedLoadingButtonController();
 
   fetchMeTheCoordinates() async {
     myLocation = await location.getMyCurrentLocation();
+    print(myLocation);
     print("My location is ${myLocation.first.addressLine}");
+    setState(() {
+      locality = myLocation.first.addressLine;
+    });
   }
 
   Widget _showErrorDialog(String errorMessage) {
@@ -418,6 +423,7 @@ class _PostGrievanceScreenState extends State<PostGrievanceScreen> {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: TextFormField(
+                      onTap: () => fetchMeTheCoordinates(),
                       onChanged: (value) {
                         complaintProvider.landmark = value;
                       },
@@ -662,7 +668,8 @@ class _PostGrievanceScreenState extends State<PostGrievanceScreen> {
                       complaintProvider.area_of_comp = widget.aoc;
                       complaintProvider.date = DateTime.now().toString();
                       complaintProvider.id = complaintID;
-                      complaintProvider.location = myLocation.first.addressLine;
+                      complaintProvider.location = locality;
+                      complaintProvider.status = "POSTED";
 
                       final result =
                           Provider.of<ComplaintProvider>(context, listen: false)

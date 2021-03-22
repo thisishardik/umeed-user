@@ -23,6 +23,7 @@ import 'package:umeed_user_app/screens/grievance/grievance_history.dart';
 import 'package:umeed_user_app/screens/help_screen.dart';
 import 'package:umeed_user_app/screens/info_screen.dart';
 import 'package:umeed_user_app/screens/news/news_home.dart';
+import 'package:umeed_user_app/screens/profile_screen.dart';
 
 class Dashboard extends StatefulWidget {
   static String id = "/dashboard";
@@ -301,7 +302,15 @@ class _DashboardState extends State<Dashboard> {
               );
             }
             if (index == 3) {}
-            if (index == 4) {}
+            if (index == 4) {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: ProfileScreen(),
+                  type: PageTransitionType.fade,
+                ),
+              );
+            }
           },
           elevation: 100.0,
           selectedItemColor: Color(0xff0c18fb),

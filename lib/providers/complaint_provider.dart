@@ -19,6 +19,7 @@ class ComplaintProvider with ChangeNotifier {
   String imageUrl2;
   String imageUrl3;
   String imageUrl4;
+  String status;
 
   /// ToDO Add images File1/2/3/4
 
@@ -98,6 +99,7 @@ class ComplaintProvider with ChangeNotifier {
           imageUrl2: extractedComplaints[i]['imageUrl2'],
           imageUrl3: extractedComplaints[i]['imageUrl3'],
           imageUrl4: extractedComplaints[i]['imageUrl4'],
+          status: extractedComplaints[i]['status'],
         ),
       );
     }
@@ -116,7 +118,7 @@ class ComplaintProvider with ChangeNotifier {
     Map<String, dynamic> extractedComplaint = jsonDecode(response.body);
     // print("THIS IS THE FETCH USER COMPLAINT BY ID DATA $extractedComplaint");
 
-    Complaint complaint;
+    Complaint complaint = Complaint();
     complaint = Complaint(
       id: extractedComplaint['id'],
       comp_user_id: extractedComplaint['comp_user_id'],
@@ -132,8 +134,9 @@ class ComplaintProvider with ChangeNotifier {
       imageUrl2: extractedComplaint['imageUrl2'], //
       imageUrl3: extractedComplaint['imageUrl3'], //
       imageUrl4: extractedComplaint['imageUrl4'], //
+      status: extractedComplaint['status'],
     );
-    print(complaint.comp_user_id);
+    print(complaint.user_email);
     notifyListeners();
     return complaint;
   }
@@ -144,7 +147,7 @@ class ComplaintProvider with ChangeNotifier {
     Map<String, String> headers = {"Content-type": "application/json"};
 
     String json =
-        '{"id":"$id","comp_user_id":"$comp_user_id","comp_user_name":"$name","comp_user_email":"$user_email","date":"$date","landmark":"$landmark","location":"$location","description":"$desc","contact":"$contact","area_of_comp":"$area_of_comp","imageUrl1":"$imageUrl1","imageUrl2":"$imageUrl2","imageUrl3":"$imageUrl3","imageUrl4":"$imageUrl4"}';
+        '{"id":"$id","comp_user_id":"$comp_user_id","comp_user_name":"$name","comp_user_email":"$user_email","date":"$date","landmark":"$landmark","location":"$location","description":"$desc","contact":"$contact","area_of_comp":"$area_of_comp","imageUrl1":"$imageUrl1","imageUrl2":"$imageUrl2","imageUrl3":"$imageUrl3","imageUrl4":"$imageUrl4","status":"$status"}';
     // print("THIS IS THE JSON FILE FOR POST API $json");
     final response = await http.post(url, body: json, headers: headers);
     if (response.statusCode == 200) {

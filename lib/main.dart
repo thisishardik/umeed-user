@@ -39,6 +39,9 @@ class _MyAppState extends State<MyApp> {
           value: DashboardProvider(),
         ),
         ChangeNotifierProvider.value(
+          value: ComplaintProvider(),
+        ),
+        ChangeNotifierProvider.value(
           value: HelpProvider(),
         ),
         ChangeNotifierProvider.value(
@@ -46,9 +49,6 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider.value(
           value: AuthProvider(),
-        ),
-        ChangeNotifierProvider.value(
-          value: ComplaintProvider(),
         ),
         ChangeNotifierProvider.value(
           value: AnnouncementsProvider(),
