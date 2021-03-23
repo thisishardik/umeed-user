@@ -18,6 +18,7 @@ import 'package:umeed_user_app/providers/complaint_provider.dart';
 import 'package:umeed_user_app/providers/user_provider.dart';
 import 'package:umeed_user_app/screens/announcements.dart';
 import 'package:umeed_user_app/screens/grievance/area_of_concern.dart';
+import 'package:umeed_user_app/screens/grievance/check_status.dart';
 import 'file:///F:/Android/AndroidStudioProjects/umeed_user_app/umeed_user_app/lib/dummy/announcements_test.dart';
 import 'package:umeed_user_app/screens/grievance/grievance_history.dart';
 import 'package:umeed_user_app/screens/help_screen.dart';
@@ -478,64 +479,75 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.blueGrey,
-                      width: 2.0,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CheckStatusScreen(),
                     ),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(2.5),
-                    child: Container(
-                      constraints: BoxConstraints(
-                        minWidth: MediaQuery.of(context).size.width,
-                        minHeight: 120.0,
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.blueGrey,
+                        width: 2.0,
                       ),
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                constraints: BoxConstraints(
-                                  maxWidth:
-                                      MediaQuery.of(context).size.width * 0.5,
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.5),
+                      child: Container(
+                        constraints: BoxConstraints(
+                          minWidth: MediaQuery.of(context).size.width,
+                          minHeight: 120.0,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  constraints: BoxConstraints(
+                                    maxWidth:
+                                        MediaQuery.of(context).size.width * 0.5,
+                                  ),
+                                  child: Text(
+                                    'CHECK STATUS',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 25.0,
+                                        fontWeight: FontWeight.w600),
+                                  ),
                                 ),
-                                child: Text(
-                                  'CHECK STATUS',
+                                Text(
+                                  'Check status of your registered\n complaints or applications.',
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 25.0,
-                                      fontWeight: FontWeight.w600),
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400),
                                 ),
-                              ),
-                              Text(
-                                'Check status of your registered\n complaints or applications.',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                          Container(),
-                          Container(),
-                          Container(),
-                          Image.asset(
-                            "assets/images/grief.png",
-                            height: MediaQuery.of(context).size.height * 0.075,
-                          ),
-                        ],
+                              ],
+                            ),
+                            Container(),
+                            Container(),
+                            Container(),
+                            Image.asset(
+                              "assets/images/grief.png",
+                              height:
+                                  MediaQuery.of(context).size.height * 0.075,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -731,9 +743,9 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 60.0,
-              ),
+              // SizedBox(
+              //   height: 60.0,
+              // ),
               // Container(
               //   margin: const EdgeInsets.only(top: 20.0),
               //   padding: const EdgeInsets.all(15.0),

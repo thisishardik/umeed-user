@@ -5,9 +5,11 @@ import 'package:page_transition/page_transition.dart';
 import 'package:umeed_user_app/helpers/news_category.dart';
 import 'package:umeed_user_app/helpers/news_data.dart';
 import 'package:umeed_user_app/components/news_tile.dart';
+import 'package:umeed_user_app/screens/dashboard.dart';
 import 'package:umeed_user_app/screens/help_screen.dart';
 import 'package:umeed_user_app/screens/news/category_news.dart';
 import 'package:umeed_user_app/screens/news/news_fetch_api.dart';
+import 'package:umeed_user_app/screens/profile_screen.dart';
 
 class NewsHomeScreen extends StatefulWidget {
   @override
@@ -78,7 +80,13 @@ class _NewsHomeScreenState extends State<NewsHomeScreen> {
         currentIndex: index,
         onTap: (index) {
           if (index == 0) {
-            print("DUHH");
+            Navigator.push(
+              context,
+              PageTransition(
+                child: Dashboard(),
+                type: PageTransitionType.fade,
+              ),
+            );
           }
           if (index == 1) {
             print("DUHH!");
@@ -93,7 +101,15 @@ class _NewsHomeScreenState extends State<NewsHomeScreen> {
             );
           }
           if (index == 3) {}
-          if (index == 4) {}
+          if (index == 4) {
+            Navigator.push(
+              context,
+              PageTransition(
+                child: ProfileScreen(),
+                type: PageTransitionType.fade,
+              ),
+            );
+          }
         },
         elevation: 100.0,
         selectedItemColor: Color(0xff0c18fb),

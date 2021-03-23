@@ -10,16 +10,17 @@ import 'package:umeed_user_app/providers/complaint_provider.dart';
 import 'package:umeed_user_app/providers/user_provider.dart';
 import 'package:umeed_user_app/screens/announcements.dart';
 import 'package:umeed_user_app/screens/grievance/complaint_detail.dart';
+import 'package:umeed_user_app/screens/grievance/status_update_timeline.dart';
 import 'package:umeed_user_app/screens/help_screen.dart';
 import 'package:umeed_user_app/screens/news/news_home.dart';
 import 'package:umeed_user_app/screens/profile_screen.dart';
 
-class GrievanceHistory extends StatefulWidget {
+class CheckStatusScreen extends StatefulWidget {
   @override
-  _GrievanceHistoryState createState() => _GrievanceHistoryState();
+  _CheckStatusScreenState createState() => _CheckStatusScreenState();
 }
 
-class _GrievanceHistoryState extends State<GrievanceHistory> {
+class _CheckStatusScreenState extends State<CheckStatusScreen> {
   AppUser userData;
   int index = 0;
 
@@ -44,7 +45,7 @@ class _GrievanceHistoryState extends State<GrievanceHistory> {
           onPressed: () => Navigator.popAndPushNamed(context, '/dashboard'),
         ),
         title: Text(
-          'Grievance History',
+          'Grievance Status Update',
           style: TextStyle(
             color: Colors.black,
           ),
@@ -212,8 +213,8 @@ class _GrievanceHistoryState extends State<GrievanceHistory> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          ComplaintDetailScreen(
-                                        id: complaintData.id,
+                                          StatusUpdateTimeline(
+                                        id: complaintData.id.toString(),
                                       ),
                                     ),
                                   );
@@ -221,15 +222,15 @@ class _GrievanceHistoryState extends State<GrievanceHistory> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                     border: Border.all(
-                                      color: Colors.blueGrey,
-                                      width: 2.0,
+                                      color: Colors.blue,
+                                      width: 2.5,
                                     ),
                                     borderRadius: BorderRadius.circular(7.0),
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
-                                      'View',
+                                      'Check Status',
                                       style: TextStyle(
                                         color: Colors.blueGrey,
                                         fontWeight: FontWeight.w500,

@@ -10,6 +10,7 @@ import 'package:umeed_user_app/components/service_locator.dart';
 import 'package:umeed_user_app/screens/dashboard.dart';
 import 'package:umeed_user_app/screens/info_screen.dart';
 import 'package:umeed_user_app/screens/news/news_home.dart';
+import 'package:umeed_user_app/screens/profile_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HelpScreen extends StatefulWidget {
@@ -125,7 +126,15 @@ class _HelpScreenState extends State<HelpScreen> {
             print("DUHH");
           }
           if (index == 3) {}
-          if (index == 4) {}
+          if (index == 4) {
+            Navigator.push(
+              context,
+              PageTransition(
+                child: ProfileScreen(),
+                type: PageTransitionType.fade,
+              ),
+            );
+          }
         },
         elevation: 100.0,
         selectedItemColor: Color(0xff0c18fb),
@@ -149,9 +158,9 @@ class _HelpScreenState extends State<HelpScreen> {
             ),
           ),
           BottomNavigationBarItem(
-            label: "Info",
+            label: "News",
             icon: Icon(
-              AntDesign.infocirlce,
+              FontAwesome5.newspaper,
             ),
           ),
           BottomNavigationBarItem(

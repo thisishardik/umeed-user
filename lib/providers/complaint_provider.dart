@@ -110,7 +110,7 @@ class ComplaintProvider with ChangeNotifier {
   }
 
   Future<Complaint> fetchUserComplaintByID(String id) async {
-    var url =
+    String url =
         "https://xk01e5qt90.execute-api.us-east-1.amazonaws.com/v1/user/complaintid/$id";
 
     final response = await http.get(url);
@@ -118,7 +118,7 @@ class ComplaintProvider with ChangeNotifier {
     Map<String, dynamic> extractedComplaint = jsonDecode(response.body);
     // print("THIS IS THE FETCH USER COMPLAINT BY ID DATA $extractedComplaint");
 
-    Complaint complaint = Complaint();
+    Complaint complaint;
     complaint = Complaint(
       id: extractedComplaint['id'],
       comp_user_id: extractedComplaint['comp_user_id'],
@@ -136,7 +136,7 @@ class ComplaintProvider with ChangeNotifier {
       imageUrl4: extractedComplaint['imageUrl4'], //
       status: extractedComplaint['status'],
     );
-    print(complaint.user_email);
+    print(complaint.status);
     notifyListeners();
     return complaint;
   }

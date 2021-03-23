@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -133,8 +135,7 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
       ),
       body: SingleChildScrollView(
         child: FutureBuilder(
-          future: Provider.of<ComplaintProvider>(context)
-              .fetchUserComplaintByID(widget.id),
+          future: fetchUserComplaintByID(widget.id),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               // print("SNAPSHOT DATA : ${snapshot.data}");
@@ -159,7 +160,7 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
                               "Complaint ID",
                             ),
                             Text(
-                              "${userComplaintData.id}",
+                              "${userComplaintData['id']}",
                             ),
                           ],
                         ),
@@ -170,7 +171,7 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
                               "Name",
                             ),
                             Text(
-                              "${userComplaintData.name}",
+                              "${userComplaintData['comp_user_name']}",
                             ),
                           ],
                         ),
@@ -181,7 +182,7 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
                               "Phone Number",
                             ),
                             Text(
-                              "${userComplaintData.contact}",
+                              "${userComplaintData['contact']}",
                             ),
                           ],
                         ),
@@ -192,7 +193,7 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
                               "Email",
                             ),
                             Text(
-                              "${userComplaintData.user_email}",
+                              "${userComplaintData['comp_user_email']}",
                             ),
                           ],
                         ),
@@ -203,7 +204,7 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
                               "Posted On",
                             ),
                             Text(
-                              "${userComplaintData.date}",
+                              "${userComplaintData['date']}",
                             ),
                           ],
                         ),
@@ -214,7 +215,7 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
                               "Landmark",
                             ),
                             Text(
-                              "${userComplaintData.landmark}",
+                              "${userComplaintData['landmark']}",
                             ),
                           ],
                         ),
@@ -225,7 +226,7 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
                               "Description",
                             ),
                             Text(
-                              "${userComplaintData.desc}",
+                              "${userComplaintData['description']}",
                             ),
                           ],
                         ),
@@ -245,5 +246,14 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
         ),
       ),
     );
+  }
+
+  Future<Map> fetchUserComplaintByID(String id) async {
+    String url =
+        "https://xk01e5qt90.execute-api.us-east-1.amazonaws.com/v1/user/complaintid/$id";
+
+    http.Response response = await http.get(url);
+    print(response.statusCode);
+    return json.decode(response.body);
   }
 }
