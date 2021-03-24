@@ -170,9 +170,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 //     postedComplaints = postedComplaints + 1;
                 //   } else if (snapshot.data['Items'][i]['status'] ==
                 //       'ATTENDED') {
-                //     attendedComplaints = postedComplaints + 1;
+                //     attendedComplaints = attendedComplaints + 1;
                 //   } else {
-                //     closedComplaints = postedComplaints + 1;
+                //     closedComplaints = closedComplaints + 1;
                 //   }
                 //   // postedComplaints = snapshot.data['Items']
                 //   //     .where(snapshot.data['Items'][i]['status'] == 'POSTED');
@@ -218,7 +218,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Text(
-                                              "${userData.name}",
+                                              "${userData.username}",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .title,
@@ -309,6 +309,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     subtitle: Text("${userData.uid}"),
                                     leading:
                                         Icon(Icons.account_circle_outlined),
+                                  ),
+                                  ListTile(
+                                    title: Text("Name"),
+                                    subtitle: Text("${userData.name}"),
+                                    leading: Icon(Icons.account_box),
                                   ),
                                   ListTile(
                                     title: Text("Email"),

@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -419,43 +420,92 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               });
                             }
                           } catch (e) {
+                            setState(() {
+                              showSpinner = false;
+                            });
                             print(e);
-
                             switch (e.code) {
-                              case 'ERROR_OPERATION_NOT_ALLOWED':
-                                _showErrorDialog("ERROR_OPERATION_NOT_ALLOWED");
+                              case 'ERROR_INVALID_EMAIL':
+                                // _showErrorDialog("ERROR_INVALID_EMAIL");
+                                return CoolAlert.show(
+                                  context: context,
+                                  type: CoolAlertType.error,
+                                  text: "ERROR_INVALID_EMAIL",
+                                  confirmBtnText: "Ok",
+                                  confirmBtnColor: Colors.blue,
+                                  onConfirmBtnTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                );
                                 break;
                               case 'ERROR_WEAK_PASSWORD':
                                 // _showErrorDialog("ERROR_WEAK_PASSWORD");
-                                _showSnackBar(context, "ERROR_WEAK_PASSWORD");
-                                break;
-                              case 'ERROR_INVALID_EMAIL':
-                                // _showErrorDialog("ERROR_INVALID_EMAIL");
-                                _showSnackBar(context, "ERROR_INVALID_EMAIL");
+                                return CoolAlert.show(
+                                  context: context,
+                                  type: CoolAlertType.error,
+                                  text: "ERROR_WEAK_PASSWORD",
+                                  confirmBtnText: "Ok",
+                                  confirmBtnColor: Colors.blue,
+                                  onConfirmBtnTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                );
                                 break;
                               case 'ERROR_EMAIL_ALREADY_IN_USE':
                                 // _showErrorDialog(
                                 //     "ERROR_EMAIL_ALREADY_IN_USE");
-                                _showSnackBar(
-                                    context, "ERROR_EMAIL_ALREADY_IN_USE");
+                                return CoolAlert.show(
+                                  context: context,
+                                  type: CoolAlertType.error,
+                                  text: "ERROR_EMAIL_ALREADY_IN_USE",
+                                  confirmBtnText: "Ok",
+                                  confirmBtnColor: Colors.blue,
+                                  onConfirmBtnTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                );
+                                break;
+                              case 'ERROR_OPERATION_NOT_ALLOWED':
+                                return CoolAlert.show(
+                                  context: context,
+                                  type: CoolAlertType.error,
+                                  text: "ERROR_OPERATION_NOT_ALLOWED",
+                                  confirmBtnText: "Ok",
+                                  confirmBtnColor: Colors.blue,
+                                  onConfirmBtnTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                );
                                 break;
                               case 'ERROR_INVALID_CREDENTIAL':
                                 // _showErrorDialog(
                                 //     "ERROR_INVALID_CREDENTIAL");
-                                _showSnackBar(
-                                    context, "ERROR_INVALID_CREDENTIAL");
+                                return CoolAlert.show(
+                                  context: context,
+                                  type: CoolAlertType.error,
+                                  text: "ERROR_INVALID_CREDENTIAL",
+                                  confirmBtnText: "Ok",
+                                  confirmBtnColor: Colors.blue,
+                                  onConfirmBtnTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                );
                                 break;
                               default:
                                 // _showErrorDialog(
                                 //     "Unknown error has occurred.");
-                                _showSnackBar(
-                                    context, "Unknown error has occurred");
+                                return CoolAlert.show(
+                                  context: context,
+                                  type: CoolAlertType.error,
+                                  text: "Authentication error has occurred",
+                                  confirmBtnText: "Ok",
+                                  confirmBtnColor: Colors.blue,
+                                  onConfirmBtnTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                );
                                 break;
                             }
-                            setState(() {
-                              showFloatingToast = true;
-                              showSpinner = false;
-                            });
                           }
                         },
                         child: Text(

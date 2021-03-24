@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:umeed_user_app/screens/dashboard.dart';
 import 'package:umeed_user_app/screens/help_screen.dart';
 import 'package:umeed_user_app/screens/news/news_fetch_api.dart';
 import 'package:umeed_user_app/components/news_tile.dart';
+import 'package:umeed_user_app/screens/profile_screen.dart';
 
 class CategoryNews extends StatefulWidget {
   final String newsCategory;
@@ -73,7 +75,13 @@ class _CategoryNewsState extends State<CategoryNews> {
         currentIndex: index,
         onTap: (index) {
           if (index == 0) {
-            print("DUHH");
+            Navigator.push(
+              context,
+              PageTransition(
+                child: Dashboard(),
+                type: PageTransitionType.fade,
+              ),
+            );
           }
           if (index == 1) {
             print("DUHH!");
@@ -88,7 +96,15 @@ class _CategoryNewsState extends State<CategoryNews> {
             );
           }
           if (index == 3) {}
-          if (index == 4) {}
+          if (index == 4) {
+            Navigator.push(
+              context,
+              PageTransition(
+                child: ProfileScreen(),
+                type: PageTransitionType.fade,
+              ),
+            );
+          }
         },
         elevation: 100.0,
         selectedItemColor: Color(0xff0c18fb),

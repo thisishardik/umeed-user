@@ -18,18 +18,30 @@ class _ArticleViewState extends State<ArticleView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_outlined,
+            color: Colors.black,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "Flutter",
+              "News",
+              style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600),
+            ),
+            Text(
+              "by",
               style:
                   TextStyle(color: Colors.black87, fontWeight: FontWeight.w600),
             ),
             Text(
-              "News",
-              style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600),
-            )
+              "UMEED",
+              style:
+                  TextStyle(color: Colors.orange, fontWeight: FontWeight.w600),
+            ),
           ],
         ),
         actions: <Widget>[
@@ -37,6 +49,7 @@ class _ArticleViewState extends State<ArticleView> {
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Icon(
                 Icons.share,
+                color: Colors.black,
               ))
         ],
         backgroundColor: Colors.transparent,

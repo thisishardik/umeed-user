@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umeed_user_app/screens/dashboard.dart';
@@ -251,37 +252,79 @@ class _SignInScreenState extends State<SignInScreen> {
                               });
                             }
                           } catch (e) {
-                            print(e);
                             setState(() {
-                              switch (e.code) {
-                                case 'ERROR_INVALID_EMAIL':
-                                  // _showErrorDialog("ERROR_INVALID_EMAIL");
-                                  _showSnackBar(context, "ERROR_INVALID_EMAIL");
-                                  break;
-                                case 'ERROR_WRONG_PASSWORD':
-                                  // _showErrorDialog("ERROR_WRONG_PASSWORD");
-                                  _showSnackBar(
-                                      context, "ERROR_WRONG_PASSWORD");
-
-                                  break;
-                                case 'ERROR_USER_NOT_FOUND':
-                                  // _showErrorDialog("ERROR_USER_NOT_FOUND");
-                                  _showSnackBar(
-                                      context, "ERROR_USER_NOT_FOUND");
-                                  break;
-                                case 'ERROR_USER_DISABLED':
-                                  // _showErrorDialog("ERROR_USER_DISABLED");
-                                  _showSnackBar(context, "ERROR_USER_DISABLED");
-                                  break;
-                                default:
-                                  // _showErrorDialog(
-                                  //     "Unknown error has occurred.");
-                                  _showSnackBar(
-                                      context, "Unknown error has occurred");
-                                  break;
-                              }
                               showSpinner = false;
                             });
+                            print(e.code);
+                            switch (e.code) {
+                              case 'ERROR_INVALID_EMAIL':
+                                // _showErrorDialog("ERROR_INVALID_EMAIL");
+                                return CoolAlert.show(
+                                  context: context,
+                                  type: CoolAlertType.error,
+                                  text: "ERROR_INVALID_EMAIL",
+                                  confirmBtnText: "Ok",
+                                  confirmBtnColor: Colors.blue,
+                                  onConfirmBtnTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                );
+                                break;
+                              case 'ERROR_WRONG_PASSWORD':
+                                // _showErrorDialog("ERROR_WRONG_PASSWORD");
+                                return CoolAlert.show(
+                                  context: context,
+                                  type: CoolAlertType.error,
+                                  text: "ERROR_WRONG_PASSWORD",
+                                  confirmBtnText: "Ok",
+                                  confirmBtnColor: Colors.blue,
+                                  onConfirmBtnTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                );
+
+                                break;
+                              case 'ERROR_USER_NOT_FOUND':
+                                // _showErrorDialog("ERROR_USER_NOT_FOUND");
+                                return CoolAlert.show(
+                                  context: context,
+                                  type: CoolAlertType.error,
+                                  text: "ERROR_USER_NOT_FOUND",
+                                  confirmBtnText: "Ok",
+                                  confirmBtnColor: Colors.blue,
+                                  onConfirmBtnTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                );
+                                break;
+                              case 'ERROR_USER_DISABLED':
+                                // _showErrorDialog("ERROR_USER_DISABLED");
+                                return CoolAlert.show(
+                                  context: context,
+                                  type: CoolAlertType.error,
+                                  text: "ERROR_USER_DISABLED",
+                                  confirmBtnText: "Ok",
+                                  confirmBtnColor: Colors.blue,
+                                  onConfirmBtnTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                );
+                                break;
+                              default:
+                                // _showErrorDialog(
+                                //     "Unknown error has occurred.");
+                                return CoolAlert.show(
+                                  context: context,
+                                  type: CoolAlertType.error,
+                                  text: "Authentication error has occurred",
+                                  confirmBtnText: "Ok",
+                                  confirmBtnColor: Colors.blue,
+                                  onConfirmBtnTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                );
+                                break;
+                            }
                           }
                         },
                         child: Text(

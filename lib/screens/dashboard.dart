@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:geocoder/model.dart';
@@ -131,7 +132,7 @@ class _DashboardState extends State<Dashboard> {
                       'UMEED',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 16.0,
+                        fontSize: 15.0,
                         fontWeight: FontWeight.w500,
                         letterSpacing: 1.0,
                       ),
@@ -151,7 +152,7 @@ class _DashboardState extends State<Dashboard> {
                           "Announcements",
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 16,
+                              fontSize: 15,
                               fontWeight: FontWeight.w600),
                         ),
                       ),
@@ -176,7 +177,7 @@ class _DashboardState extends State<Dashboard> {
                           "Grievance History",
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 16,
+                              fontSize: 15,
                               fontWeight: FontWeight.w600),
                         ),
                       ),
@@ -201,7 +202,7 @@ class _DashboardState extends State<Dashboard> {
                           "Help",
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 16,
+                              fontSize: 15,
                               fontWeight: FontWeight.w600),
                         ),
                       ),
@@ -226,7 +227,7 @@ class _DashboardState extends State<Dashboard> {
                           "About",
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 16,
+                              fontSize: 15,
                               fontWeight: FontWeight.w600),
                         ),
                       ),
@@ -244,13 +245,25 @@ class _DashboardState extends State<Dashboard> {
                             "Logout",
                             style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 16,
+                                fontSize: 15,
                                 fontWeight: FontWeight.w600),
                           ),
                         ),
-                        onTap: () async {
-                          await _auth.signOut();
-                          Navigator.popAndPushNamed(context, '/login');
+                        onTap: () {
+                          CoolAlert.show(
+                              context: context,
+                              type: CoolAlertType.confirm,
+                              text: "Do you wish to logout?",
+                              confirmBtnText: "Yes",
+                              cancelBtnText: "No",
+                              confirmBtnColor: Colors.blue,
+                              onConfirmBtnTap: () async {
+                                await _auth.signOut();
+                                Navigator.popAndPushNamed(context, '/login');
+                              },
+                              onCancelBtnTap: () {
+                                Navigator.pop(context);
+                              });
                         }),
                     SizedBox(height: 20.0),
                     Container(

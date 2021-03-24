@@ -142,97 +142,198 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
               var userComplaintData = snapshot.data;
               return Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.red,
-                      width: 2.0,
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(10.0),
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(
+                        'Personal Information',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                        ),
+                      ),
                     ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Complaint ID",
-                            ),
-                            Text(
-                              "${userComplaintData['id']}",
-                            ),
+                    Card(
+                      elevation: 1.0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Column(
+                          children: <Widget>[
+                            buildRowPaddingData(
+                                "Username", "${userData.username}"),
+                            buildRowPaddingData("Name", "${userData.name}"),
+                            buildRowPaddingData("Email", "${userData.email}"),
+                            buildRowPaddingData(
+                                "Phone Number", "${userData.contact}"),
                           ],
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Name",
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(10.0),
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(
+                        'Complaint Details',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                        ),
+                      ),
+                    ),
+                    Card(
+                      elevation: 1.0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Column(
+                          children: <Widget>[
+                            buildRowPaddingData(
+                                "Complaint ID", "${userComplaintData['id']}"),
+                            buildRowPaddingData(
+                                "Status", "${userComplaintData['status']}"),
+                            buildRowPaddingData("Posted On",
+                                "${userComplaintData['date'].toString().substring(0, 19)}"),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Posted From",
+                                    style: TextStyle(
+                                      fontSize: 15.0,
+                                    ),
+                                  ),
+                                  Flexible(
+                                    fit: FlexFit.loose,
+                                    child: Container(
+                                      margin: EdgeInsets.only(left: 32.0),
+                                      child: Text(
+                                        "${userComplaintData['location']}",
+                                        softWrap: true,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: 15.5,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                            Text(
-                              "${userComplaintData['comp_user_name']}",
-                            ),
+                            buildRowPaddingData("Area of Concern",
+                                "${userComplaintData['area_of_comp']}"),
+                            buildRowPaddingData(
+                                "Landmark", "${userComplaintData['landmark']}"),
                           ],
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Phone Number",
-                            ),
-                            Text(
-                              "${userComplaintData['contact']}",
-                            ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(10.0),
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(
+                        'Grievance Details',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                        ),
+                      ),
+                    ),
+                    Card(
+                      elevation: 1.0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Column(
+                          children: <Widget>[
+                            Text("${userComplaintData['description']}"),
                           ],
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Email",
-                            ),
-                            Text(
-                              "${userComplaintData['comp_user_email']}",
-                            ),
-                          ],
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(10.0),
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(
+                        'Pictures',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontSize: 16.0,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Posted On",
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    CarouselSlider(
+                      options: CarouselOptions(
+                        height: MediaQuery.of(context).size.height * 0.40,
+                        enlargeCenterPage: true,
+                        autoPlay: false,
+                        aspectRatio: 16 / 9,
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enableInfiniteScroll: true,
+                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        viewportFraction: 0.8,
+                      ),
+                      items: [
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.2,
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: DecorationImage(
+                              image: userComplaintData['imageUrl1'] != null
+                                  ? NetworkImage(userComplaintData['imageUrl1'])
+                                  : AssetImage("assets/images/no_image.jpg"),
+                              fit: BoxFit.cover,
                             ),
-                            Text(
-                              "${userComplaintData['date']}",
-                            ),
-                          ],
+                          ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Landmark",
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.2,
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: DecorationImage(
+                              image: userComplaintData['imageUrl2'] != null
+                                  ? NetworkImage(userComplaintData['imageUrl2'])
+                                  : AssetImage("assets/images/no_image.jpg"),
+                              fit: BoxFit.cover,
                             ),
-                            Text(
-                              "${userComplaintData['landmark']}",
-                            ),
-                          ],
+                          ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Description",
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.2,
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: DecorationImage(
+                              image: userComplaintData['imageUrl3'] != null
+                                  ? NetworkImage(userComplaintData['imageUrl3'])
+                                  : AssetImage("assets/images/no_image.jpg"),
+                              fit: BoxFit.cover,
                             ),
-                            Text(
-                              "${userComplaintData['description']}",
+                          ),
+                        ),
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.2,
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: DecorationImage(
+                              image: userComplaintData['imageUrl4'] != null
+                                  ? NetworkImage(userComplaintData['imageUrl4'])
+                                  : AssetImage("assets/images/no_image.jpg"),
+                              fit: BoxFit.cover,
                             ),
-                          ],
+                          ),
                         ),
                       ],
                     ),
-                  ),
+                  ],
                 ),
               );
             } else {
@@ -244,6 +345,29 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
             }
           },
         ),
+      ),
+    );
+  }
+
+  Widget buildRowPaddingData(String titleText, String infoText) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "$titleText",
+            style: TextStyle(
+              fontSize: 15.0,
+            ),
+          ),
+          Text(
+            "$infoText",
+            style: TextStyle(
+              fontSize: 16.0,
+            ),
+          ),
+        ],
       ),
     );
   }

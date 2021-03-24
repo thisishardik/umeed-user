@@ -578,3 +578,13 @@
                                                                                                ),
                                                                                              ),
                                                                                            ),
+
+                                                                                           // TO PREVENT OVERFLOW AND PUT ...
+                                                                                                                        Flexible(
+                                                                                                                             fit: FlexFit.loose,
+                                                                                                                             child: Text(
+                                                                                                                               "${userComplaintData['location']}",
+                                                                                                                               softWrap: true,
+                                                                                                                               overflow: TextOverflow.ellipsis,
+                                                                                                                             ),
+                                                                                                                           ),

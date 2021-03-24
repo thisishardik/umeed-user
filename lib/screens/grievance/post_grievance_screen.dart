@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -17,6 +18,7 @@ import 'package:umeed_user_app/helpers/user.dart';
 import 'package:umeed_user_app/providers/complaint_provider.dart';
 import 'package:umeed_user_app/providers/location_provider.dart';
 import 'package:umeed_user_app/providers/user_provider.dart';
+import 'package:umeed_user_app/screens/grievance/check_status.dart';
 import 'package:umeed_user_app/screens/grievance/success_screen.dart';
 import 'package:platform_alert_dialog/platform_alert_dialog.dart';
 import 'package:vibration/vibration.dart';
@@ -259,6 +261,24 @@ class _PostGrievanceScreenState extends State<PostGrievanceScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final successAlert = _buildButton(
+      onTap: () {
+        CoolAlert.show(
+            context: context,
+            type: CoolAlertType.success,
+            text:
+                "Your complaint has been posted successfully. You can keep its track in check status section. ",
+            onConfirmBtnTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CheckStatusScreen(),
+                  ));
+            });
+      },
+      text: "Success",
+      color: Colors.green,
+    );
     final complaintProvider =
         Provider.of<ComplaintProvider>(context, listen: false);
     return MaterialApp(
@@ -742,7 +762,7 @@ class _PostGrievanceScreenState extends State<PostGrievanceScreen> {
                         } else {
                           setState(() {
                             _showErrorDialog(
-                                "Please grant permissions ot upload images.");
+                                "Please grant the permission to upload images.");
                           });
                         }
                         complaintProvider.imageUrl1 = imageUrl1;
@@ -754,12 +774,24 @@ class _PostGrievanceScreenState extends State<PostGrievanceScreen> {
                             .postComplaintToDB();
                         _btnController.success();
 
-                        Future.delayed(Duration(seconds: 3), () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SuccessScreen(),
-                              ));
+                        Future.delayed(Duration(seconds: 1), () {
+                          CoolAlert.show(
+                              context: context,
+                              type: CoolAlertType.success,
+                              text:
+                                  "Your complaint has been posted successfully. You can keep its track in the check status section.",
+                              onConfirmBtnTap: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => CheckStatusScreen(),
+                                    ));
+                              });
+                          // Navigator.pushReplacement(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //       builder: (context) => SuccessScreen(),
+                          //     ));
                         });
                       }
                     },
@@ -768,6 +800,28 @@ class _PostGrievanceScreenState extends State<PostGrievanceScreen> {
                 ],
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildButton({VoidCallback onTap, String text, Color color}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10.0),
+      child: MaterialButton(
+        color: color,
+        minWidth: double.infinity,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+        onPressed: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15.0),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: Colors.white,
+            ),
           ),
         ),
       ),
